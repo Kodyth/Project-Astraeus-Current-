@@ -24,6 +24,7 @@ import javafx.geometry.Pos;
  * 
  * FRANCE IS BACON
  * HAIL BRITTANIA
+ * USA USA USA
  */
 public class MainGUI extends Application{
  private command_line command;
