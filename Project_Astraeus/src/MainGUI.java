@@ -1,5 +1,3 @@
-
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +20,6 @@ import javafx.geometry.Pos;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
- * FRANCE IS BACON
  */
 public class MainGUI extends Application{
  private command_line command;
@@ -31,7 +28,7 @@ public class MainGUI extends Application{
         launch(args);
     }
 
-    	@Override
+    @Override
     public void start(Stage primaryStage) {
     		//Setting parameters for the Stage
             

@@ -23,7 +23,7 @@ public double PositionPointery(ArrayList<ArrayList<Data>> data){
 
 	int locationOfLong=0;
 	for(int i =0;i<(DataLog.allData.get(DataLog.allData.size()-1).size()-1);i++){
-		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "LAT"){//france
+		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "LAT"){
 			locationOfLong=i;
 		}
 	}
