@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
  * Functions: Main, Start
  * 
  * FRANCE IS BACON
+ * HAIL BRITTANIA
  */
 public class MainGUI extends Application{
  private command_line command;
