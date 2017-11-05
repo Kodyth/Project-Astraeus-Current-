@@ -1,5 +1,5 @@
 //test
-
+//test2
 /**
  * This class is the main gui for logging in. There is a login for users and one for admins. Once someone logs in, their username is
  * displayed in the top right corner, and if anyone else tries to log on there are told that someone is already logged in. If the program
@@ -26,6 +26,9 @@ import javafx.stage.Stage;
 
 public class loginGUI extends Application {
 
+
+	//HERE IS MY CHANGE 
+	
 	UserAccount ua = new UserAccount(UserAccount.username, UserAccount.password);
 	static boolean loginUser;
 	static int i=0;
@@ -46,6 +49,7 @@ public class loginGUI extends Application {
 		User.setFill(Color.BLACK);
 		User.setFont(new Font(15));
 		root.add(User, 2, 1);
+		System.out.println("github test");
 
 		Text username = new Text("Username:");
 		username.setFill(Color.BLACK);
