@@ -9,7 +9,7 @@ public class PositionPointer {
 public double PositionPointerX(ArrayList<ArrayList<Data>> data){
 	int locationOfLat=0;
 	for(int i =0;i<(DataLog.allData.get(DataLog.allData.size()-1).size()-1);i++){
-		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "latiitude)"){
+		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "LON"){
 			locationOfLat=i;
 		}
 	}
@@ -23,7 +23,7 @@ public double PositionPointery(ArrayList<ArrayList<Data>> data){
 
 	int locationOfLong=0;
 	for(int i =0;i<(DataLog.allData.get(DataLog.allData.size()-1).size()-1);i++){
-		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "longitude)"){
+		if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == "LAT"){//france
 			locationOfLong=i;
 		}
 	}

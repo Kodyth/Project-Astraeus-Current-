@@ -21,6 +21,8 @@ import javafx.geometry.Pos;
  * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. Contains buttons that lead to every other section of the program. 
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
+ * 
+ * FRANCE IS BACON
  */
 public class MainGUI extends Application{
  private command_line command;
