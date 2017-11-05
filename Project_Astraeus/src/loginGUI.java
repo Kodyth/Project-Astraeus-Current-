@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class loginGUI extends Application {
 
 
-	//HERE IS MY CHANGE efkgbewkvgbekvtgbk
+	//HERE IS MY CHANGE 
 	
 	UserAccount ua = new UserAccount(UserAccount.username, UserAccount.password);
 	static boolean loginUser;
@@ -48,6 +48,7 @@ public class loginGUI extends Application {
 		User.setFill(Color.BLACK);
 		User.setFont(new Font(15));
 		root.add(User, 2, 1);
+		System.out.println("github test");
 
 		Text username = new Text("Username:");
 		username.setFill(Color.BLACK);
