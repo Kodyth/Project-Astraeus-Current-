@@ -20,6 +20,12 @@ import javafx.geometry.Pos;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
+<<<<<<< HEAD
+=======
+ * FRANCE IS BACON
+ * HAIL BRITTANIA
+ * USA USA USA
+>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
  private command_line command;
