@@ -1,6 +1,6 @@
 import java.util.*;
 
-//test
+//Test for Quiz -- Brandon W
 
 /**
  * DataLog.java
