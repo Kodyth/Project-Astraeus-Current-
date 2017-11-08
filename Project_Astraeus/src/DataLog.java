@@ -9,7 +9,7 @@ import java.util.*;
  * Collaborations: Stack Exchange for example on how RXTX works
  * Date: 10/30/17
  *
- * Description: This is the cass that is responsible for keeping all of Data input to the program organized
+ * Description: This is the class that is responsible for keeping all of Data input to the program organized
  * 				and accessible to other parts of the program
  */
 
