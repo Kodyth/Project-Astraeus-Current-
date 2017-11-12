@@ -34,6 +34,8 @@ public class MainGUI extends Application{
 
     public static void main(String[] args) {
         launch(args);
+        
+        SerialComm.Run();
     }
 
     	@Override

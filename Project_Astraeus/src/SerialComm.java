@@ -128,7 +128,7 @@ public class SerialComm implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void Run throws Exception {
 		SerialComm main = new SerialComm();
 		main.initialize();
 		Thread t=new Thread() {
