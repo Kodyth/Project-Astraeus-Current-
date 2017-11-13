@@ -106,27 +106,27 @@ public class MainGUI extends Application{
             Button help = new Button("Control Cubesat/ View Commands");
             help.setMaxWidth(Double.MAX_VALUE);
             help.setMinHeight(50);
-            vCenter.getChildren().addAll(root, commandb, rtData, rData, help);
+            vCenter.getChildren().addAll(root, commandb, rData, help);
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             BarLengthForData bar1 = new BarLengthForData();
             BarLengthForData bar2 = new BarLengthForData();
             
-            double temperature = 0;double voltage = 0;
+            
             
             
 
             
-             Label tempe = new Label("Temperature: " + temperature + "\n");
+             Label tempe = new Label();
              tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
-             Label volta = new Label("Voltage: " + voltage + "\n");
+             Label volta = new Label();
              volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Rectangle temp = new Rectangle();
-             temp.setWidth(temperature);
+             
              temp.setHeight(50);
              temp.setFill(Color.web("RED"));
              Rectangle volt = new Rectangle();
-             volt.setWidth(voltage);
+             
              volt.setHeight(50);
              volt.setFill(Color.web("RED"));
              Task task = new Task<Void>() {
@@ -138,9 +138,13 @@ public class MainGUI extends Application{
             	      Platform.runLater(new Runnable() {
             	        @Override
             	        public void run() {
-            	          temp.setWidth(bar1.DataToBarLength("TMP",50));
-            	 volt.setWidth(bar2.DataToBarLength("VOL",10));
-            	        }
+            	          double temperature = bar1.DataToBarLength("TMP",1);
+            	          double voltage = bar2.DataToBarLength("VOL",1);
+            	          temp.setWidth(temperature);
+            	          volt.setWidth(voltage);
+            	          volta.setText("Voltage: " + voltage + "\n");
+            	          tempe.setText("Temperature: " + temperature + "\n");
+            	        }				
             	      });
             	      
             	      Thread.sleep(1000);
