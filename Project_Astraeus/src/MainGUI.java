@@ -41,6 +41,7 @@ public class MainGUI extends Application{
         launch(args);
         
         
+        
     }
 
     	@Override
@@ -159,7 +160,5 @@ public class MainGUI extends Application{
              Scene mainScene = new Scene(mainLayout);
              primaryStage.setScene(mainScene);
              primaryStage.show();
-
     	}
-
 }
