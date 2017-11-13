@@ -1,4 +1,3 @@
-
 /**
  * This class contains the logic methods for user/admin account creation and retrieval.
  * 
@@ -8,26 +7,24 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 public class UserAccount{
 	static String password;
 	static String username;
 	static boolean created;
-	static boolean login;
-	static boolean loggedin;
-	static boolean loginAdmin;
-	static boolean loggedinAdmin;
+	static boolean login=false;
+	static boolean loggedin=false;
+	static boolean loginAdmin=false;
+	static boolean loggedinAdmin=false;
 
 	public void login() {
 		try {
 			FileReader fr = null;
-			String userpass = username+password;
+			String userpass = username+"_"+password+";";
 			if(loginGUI.loginUser==true) {
 				fr = new FileReader("UserAccountInfo.txt");
 			}
@@ -38,26 +35,25 @@ public class UserAccount{
 			String line = br.readLine();
 			
 			StringBuilder sb = new StringBuilder();
-
+			System.out.println(userpass);
 			while (line != null) {
 				sb.append(line);
+				System.out.println(sb.toString());
+				String l = sb.toString();
+				if(l.contains(userpass)) {
+					System.out.println("true");
+					if(loginGUI.loginUser==true) {
+					login=true;
+					loggedin = true;
+					}
+					if(loginGUI.loginUser==false) {
+						loginAdmin=true;
+						loggedinAdmin = true;
+					}
+					break;
+				}
+				line = br.readLine();	
 				sb.append(System.lineSeparator());
-				line = br.readLine();
-			}
-			String everything = sb.toString();
-			if(everything.contains(userpass)) {
-				System.out.println(everything);
-				System.out.println("true");
-				if(loginGUI.loginUser==true) {
-				login=true;
-				loggedin = true;
-				}
-				if(loginGUI.loginUser==false) {
-					loginAdmin=true;
-					loggedinAdmin = true;
-				}
-			}else {
-				login=false;
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -66,7 +62,7 @@ public class UserAccount{
 			e.printStackTrace();
 		}
 	}
-
+		
 
 	public void logout() {
 		login=false;
@@ -87,7 +83,7 @@ public class UserAccount{
 		if(createAccountGUI.selected==false) {
 			try{FileWriter fw = new FileWriter("UserAccountInfo.txt", true);
 			write = new BufferedWriter(fw);
-			write.write(username + password+";");
+			write.write(username +"_"+ password+";\n");
 			write.close();
 			created=true;
 
@@ -107,7 +103,7 @@ public class UserAccount{
 		}else {
 			try{FileWriter fw = new FileWriter("AdminAccountInfo.txt", true);
 			write = new BufferedWriter(fw);
-			write.write(username + password+";");
+			write.write(username+"_"+ password+";\n");
 			write.close();
 			created=true;
 
