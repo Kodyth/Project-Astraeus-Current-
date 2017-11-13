@@ -71,6 +71,20 @@ public class command_line extends Application{
 		returnToMain.setMaxHeight(50);
 		returnToMain.setMaxWidth(100);
 			
+        /**************HELP***************/
+        Button help = new Button("Help");
+        help.setMinHeight(50);
+        help.setMinWidth(100);
+        help.setOnAction(e -> {
+//        	Tutorial t = new Tutorial();
+        	try {
+//        	t.start(primaryStage);
+        	} catch (Exception e1) {
+        	e1.printStackTrace();
+        	}
+        });
+		
+		
 		//Event Handling for command entered
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
@@ -209,6 +223,7 @@ public class command_line extends Application{
 
 		cl_pane.getChildren().add(enterCommand);
 		cl_pane.getChildren().add(commandLog);
+		cl_pane.getChildren().add(help);
 		cl_pane.setStyle("-fx-background-color: WHITE");
 
 		//Set GUI to constant resolution (changeable in the future)

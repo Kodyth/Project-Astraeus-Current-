@@ -1,4 +1,3 @@
-
 /**
  * This class shows the GUI for account creation and adds any account information into the appropriate text file.
  * There are two different text files that accounts are written in to, there's a file for user accounts and one for admin accounts. 
@@ -30,20 +29,17 @@ public class createAccountGUI{
 		root.setHgap(5);
 
 		Text username = new Text("Username:");
-		username.setFill(Color.BLACK);
 		root.add(username, 1, 2);
 		TextField usernameCreate = new TextField();
 		usernameCreate.setPrefColumnCount(10);
 		root.add(usernameCreate, 2, 2);
 
 		Text password = new Text("Password:");
-		password.setFill(Color.BLACK);
 		root.add(password, 1, 5);
 		final TextField passwordCreate = new TextField();
 		passwordCreate.setPrefColumnCount(10);
 
 		Text verifyPassword = new Text("Verify Password:");
-		verifyPassword.setFill(Color.BLACK);
 		root.add(verifyPassword, 1, 8);
 		final TextField vpassword = new TextField();
 		vpassword.setPrefColumnCount(10);
@@ -68,12 +64,13 @@ public class createAccountGUI{
 		passwordCreate.textProperty().bindBidirectional(passwords.textProperty());
 		vpassword.textProperty().bindBidirectional(passwordsV.textProperty());
 		vpassword.setPrefColumnCount(17);
-		root.add(showPass, 2, 10);
+
 		root.add(vpassword, 2, 8);
-		root.add(passwordCreate, 2, 5);
 		root.add(passwords, 2, 5);
 		root.add(passwordsV, 2, 8);
-
+		root.add(showPass, 2, 10);
+		root.add(passwordCreate, 2, 5);
+		
 		CheckBox adminBox = new CheckBox("Admin Account");
 		root.add(adminBox, 2, 11);
 
@@ -94,7 +91,6 @@ public class createAccountGUI{
 				selected = adminBox.isSelected();
 				if(usernameCreate.getText().isEmpty() | passwordCreate.getText().isEmpty()) {
 					Text nothingL = new Text("Please fill out all fields");
-					nothingL.setFill(Color.BLACK);
 					if(i==0) {
 					root.add(nothingL, 2, 16);
 					}
@@ -105,7 +101,6 @@ public class createAccountGUI{
 					String passV = vpassword.getText();
 					if(!pass.equals(passV)) {
 						Text nothingP = new Text("The passwords entered don't match");
-						nothingP.setFill(Color.BLACK);
 						root.add(nothingP, 2, 16);
 					}
 
@@ -115,7 +110,6 @@ public class createAccountGUI{
 							UserAccount.createNewAccount();
 							if(UserAccount.created==true) {
 								Text created = new Text("Account Created");
-								created.setFill(Color.BLACK);
 								root.add(created, 2, 16);
 							}
 					}

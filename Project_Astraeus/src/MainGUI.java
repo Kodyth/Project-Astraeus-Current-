@@ -22,9 +22,6 @@ import javafx.geometry.Pos;
  * 
 <<<<<<< HEAD
 =======
- * FRANCE IS BACON
- * HAIL BRITTANIA
- * USA USA USA
 >>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
@@ -95,10 +92,22 @@ public class MainGUI extends Application{
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
             rData.setMinHeight(50);
-            Button help = new Button("Control Cubesat/ View Commands");
-            help.setMaxWidth(Double.MAX_VALUE);
-            help.setMinHeight(50);
-            vCenter.getChildren().addAll(root, commandb, rtData, rData, help);
+            
+            /**************HELP***************/
+            Button tutorial = new Button("Tutorial");
+            tutorial.setMaxWidth(Double.MAX_VALUE);
+            tutorial.setMinHeight(50);
+            
+            tutorial.setOnAction(e -> {  	
+            	Tutorial t = new Tutorial();
+            	try {
+            	t.start(primaryStage);
+            	} catch (Exception e1) {
+            	e1.printStackTrace();
+            	}
+            });
+                       
+            vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             double temperature = 50, voltage = 8.4;
