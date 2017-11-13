@@ -24,28 +24,23 @@ import javafx.geometry.Pos;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-=======
  * FRANCE IS BACON
  * HAIL BRITTANIA
  * USA USA USA
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
  private command_line command;
  private boolean trigger;
 
     public static void main(String[] args) {
-        launch(args);
-        
-        try {
+    	try {
 			SerialComm.Run();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        launch(args);
+        
+        
     }
 
     	@Override
@@ -108,6 +103,7 @@ public class MainGUI extends Application{
             rtData.setMinHeight(50);
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
+
             rData.setMinHeight(50);
             
             /**************HELP***************/
@@ -125,16 +121,19 @@ public class MainGUI extends Application{
             });
                        
             vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
+
+            rData.setMinHeight(50);
+            Button help = new Button("Control Cubesat/ View Commands");
+            help.setMaxWidth(Double.MAX_VALUE);
+            help.setMinHeight(50);
+            vCenter.getChildren().addAll(root, commandb, rData, help);
+
             
             //creating bars for temp and voltage. arbitrary values inputed temporarily
             BarLengthForData bar1 = new BarLengthForData();
             BarLengthForData bar2 = new BarLengthForData();
             
-            
-            
-            
-
-            
+           
              Label tempe = new Label();
              tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Label volta = new Label();
@@ -158,13 +157,13 @@ public class MainGUI extends Application{
             	        public void run() {
             	          double temperature = bar1.DataToBarLength("TMP",1);
             	          double voltage = bar2.DataToBarLength("VOL",1);
-            	          temp.setWidth(temperature);
-            	          volt.setWidth(voltage);
-            	          volta.setText("Voltage: " + voltage + "\n");
-            	          tempe.setText("Temperature: " + temperature + "\n");
+            	          temp.setWidth(temperature/400);
+            	          volt.setWidth(voltage/5);
+            	          volta.setText("Voltage: " + (voltage/100) + "\n");
+            	          tempe.setText("Temperature: " + (temperature/100) + "\n");
             	        }				
             	      });
-            	      
+            	      //recommitting
             	      Thread.sleep(1000);
             	    }
             	  }
