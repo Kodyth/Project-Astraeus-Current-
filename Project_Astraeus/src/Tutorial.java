@@ -2,9 +2,8 @@
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,7 +13,11 @@ public class Tutorial extends Application{
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) {		
+		primaryStage.setTitle("Astraeus");
+        primaryStage.setWidth(850);
+        primaryStage.setHeight(700);
+        
 		HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(15, 10, 15, 10));
 	    hbox.setSpacing(10);
@@ -24,6 +27,11 @@ public class Tutorial extends Application{
 	    vbox.setPadding(new Insets(10));
 	    vbox.setSpacing(8);
 	    vbox.setStyle("-fx-background-color: WHITE;");
+	    
+	    Scene mainScene = new Scene(hbox);
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+
 	}
 }
 

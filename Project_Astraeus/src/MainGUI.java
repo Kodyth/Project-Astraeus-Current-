@@ -110,7 +110,7 @@ public class MainGUI extends Application{
             rData.setMaxWidth(Double.MAX_VALUE);
             rData.setMinHeight(50);
             
-            /**************HELP***************/
+            /**************TUTORIAL***************/  
             Button tutorial = new Button("Tutorial");
             tutorial.setMaxWidth(Double.MAX_VALUE);
             tutorial.setMinHeight(50);
@@ -123,12 +123,8 @@ public class MainGUI extends Application{
             	e1.printStackTrace();
             	}
             });
-                       
+                                    
             vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
-            Button help = new Button("Control Cubesat/ View Commands");
-            help.setMaxWidth(Double.MAX_VALUE);
-            help.setMinHeight(50);
-            vCenter.getChildren().addAll(root, commandb, rData, help);
 //>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
