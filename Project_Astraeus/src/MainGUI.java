@@ -24,15 +24,9 @@ import javafx.geometry.Pos;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-=======
  * FRANCE IS BACON
  * HAIL BRITTANIA
  * USA USA USA
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
  private command_line command;
@@ -110,27 +104,10 @@ public class MainGUI extends Application{
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
             rData.setMinHeight(50);
-            
-            /**************HELP***************/
-            Button tutorial = new Button("Tutorial");
-            tutorial.setMaxWidth(Double.MAX_VALUE);
-            tutorial.setMinHeight(50);
-            
-            tutorial.setOnAction(e -> {  	
-            	Tutorial t = new Tutorial();
-            	try {
-            	t.start(primaryStage);
-            	} catch (Exception e1) {
-            	e1.printStackTrace();
-            	}
-            });
-                       
-            vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
             Button help = new Button("Control Cubesat/ View Commands");
             help.setMaxWidth(Double.MAX_VALUE);
             help.setMinHeight(50);
             vCenter.getChildren().addAll(root, commandb, rData, help);
-//>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             BarLengthForData bar1 = new BarLengthForData();
@@ -170,7 +147,7 @@ public class MainGUI extends Application{
             	          tempe.setText("Temperature: " + (temperature/100) + "\n");
             	        }				
             	      });
-            	      
+            	      //recommitting
             	      Thread.sleep(1000);
             	    }
             	  }
