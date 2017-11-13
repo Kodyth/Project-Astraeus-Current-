@@ -41,6 +41,7 @@ public class SerialComm implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	/** Default bits per second for COM port. */
 	private static final int DATA_RATE = 9600;
+	
 
 	public void initialize() {
                 // the next line is for Raspberry Pi and 
@@ -114,9 +115,10 @@ public class SerialComm implements SerialPortEventListener {
 					System.out.println("This is the Raw input");
 					System.out.println(inputLine);
 					System.out.println();
-
+					
 					//This is where the raw input string is sent to the buffer class to be processed.
 					Buffer.saveBuffer(inputLine);
+
 				}
 				
 			} catch (Exception e) {
@@ -126,7 +128,7 @@ public class SerialComm implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void Run() throws Exception {
 		SerialComm main = new SerialComm();
 		main.initialize();
 		Thread t=new Thread() {

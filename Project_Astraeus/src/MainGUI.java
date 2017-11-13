@@ -1,4 +1,8 @@
+
+
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,17 +25,30 @@ import javafx.geometry.Pos;
  * Functions: Main, Start
  * 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
+=======
+ * FRANCE IS BACON
+ * HAIL BRITTANIA
+ * USA USA USA
 >>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
  private command_line command;
+ private boolean trigger;
 
     public static void main(String[] args) {
         launch(args);
+        
+        try {
+			SerialComm.Run();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
-    @Override
+    	@Override
     public void start(Stage primaryStage) {
     		//Setting parameters for the Stage
             
@@ -108,25 +125,63 @@ public class MainGUI extends Application{
             });
                        
             vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
+            Button help = new Button("Control Cubesat/ View Commands");
+            help.setMaxWidth(Double.MAX_VALUE);
+            help.setMinHeight(50);
+            vCenter.getChildren().addAll(root, commandb, rData, help);
+//>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
-            double temperature = 50, voltage = 8.4;
-             Label tempe = new Label("Temperature: " + temperature + "\n");
+            BarLengthForData bar1 = new BarLengthForData();
+            BarLengthForData bar2 = new BarLengthForData();
+            
+            
+            
+            
+
+            
+             Label tempe = new Label();
              tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
-             Label volta = new Label("Voltage: " + voltage + "\n");
+             Label volta = new Label();
              volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Rectangle temp = new Rectangle();
-             temp.setWidth(temperature);
+             
              temp.setHeight(50);
              temp.setFill(Color.web("RED"));
              Rectangle volt = new Rectangle();
-             volt.setWidth(voltage);
+             
              volt.setHeight(50);
              volt.setFill(Color.web("RED"));
+             Task task = new Task<Void>() {
+            	  @Override
+            	  public Void call() throws Exception {
+            	    
+            	    while (true) {
+            	      
+            	      Platform.runLater(new Runnable() {
+            	        @Override
+            	        public void run() {
+            	          double temperature = bar1.DataToBarLength("TMP",1);
+            	          double voltage = bar2.DataToBarLength("VOL",1);
+            	          temp.setWidth(temperature);
+            	          volt.setWidth(voltage);
+            	          volta.setText("Voltage: " + voltage + "\n");
+            	          tempe.setText("Temperature: " + temperature + "\n");
+            	        }				
+            	      });
+            	      
+            	      Thread.sleep(1000);
+            	    }
+            	  }
+            	};
+            	Thread th = new Thread(task);
+            	th.setDaemon(true);
+            	th.start();
              vRight.getChildren().addAll(tempe,temp,volta,volt);
              Scene mainScene = new Scene(mainLayout);
              primaryStage.setScene(mainScene);
              primaryStage.show();
 
     	}
+
 }
