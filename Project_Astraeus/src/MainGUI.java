@@ -33,13 +33,14 @@ public class MainGUI extends Application{
  private boolean trigger;
 
     public static void main(String[] args) {
-        launch(args);
-        
-        try {
+    	try {
 			SerialComm.Run();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        launch(args);
+        
+        
     }
 
     	@Override
@@ -140,10 +141,10 @@ public class MainGUI extends Application{
             	        public void run() {
             	          double temperature = bar1.DataToBarLength("TMP",1);
             	          double voltage = bar2.DataToBarLength("VOL",1);
-            	          temp.setWidth(temperature);
-            	          volt.setWidth(voltage);
-            	          volta.setText("Voltage: " + voltage + "\n");
-            	          tempe.setText("Temperature: " + temperature + "\n");
+            	          temp.setWidth(temperature/400);
+            	          volt.setWidth(voltage/5);
+            	          volta.setText("Voltage: " + (voltage/100) + "\n");
+            	          tempe.setText("Temperature: " + (temperature/100) + "\n");
             	        }				
             	      });
             	      
