@@ -125,13 +125,8 @@ public class MainGUI extends Application{
             });
                        
             vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
-            Button help = new Button("Control Cubesat/ View Commands");
-            help.setMaxWidth(Double.MAX_VALUE);
-            help.setMinHeight(50);
-            vCenter.getChildren().addAll(root, commandb, rData, help);
-//>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
             
-            //creating bars for temp and voltage. arbitrary values inuted temporarily
+            //creating bars for temp and voltage. arbitrary values inputed temporarily
             BarLengthForData bar1 = new BarLengthForData();
             BarLengthForData bar2 = new BarLengthForData();
             
