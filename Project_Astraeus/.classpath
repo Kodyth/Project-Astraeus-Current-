@@ -6,6 +6,6 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/jre1.8.0_141/lib/ext/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="doc/RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
