@@ -26,7 +26,7 @@ public class command_line extends Application{
 
 	private Pane cl_pane;
 	private String command;
-	private List<String> commandList = new ArrayList<String>();
+	public static List<String> commandList = new ArrayList<String>();
 	private String commandListString;
 	
 	@Override
@@ -103,6 +103,9 @@ public class command_line extends Application{
 							enterCommand.clear();
 							commandList.add(0,"Current Software Status: Good");
 							commandList.add(1,command);
+							
+							//Next lines are for testing serial output
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeSoftware") == true){

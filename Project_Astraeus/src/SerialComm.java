@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -36,7 +37,7 @@ public class SerialComm implements SerialPortEventListener {
 	*/
 	private BufferedReader input;
 	/** The output stream to the port */
-	private OutputStream output;
+	public static OutputStream output;
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
 	/** Default bits per second for COM port. */
@@ -110,6 +111,12 @@ public class SerialComm implements SerialPortEventListener {
 				if (inputLine.startsWith("V")) {
 					inputLine = "";
 				}
+				else if(inputLine.startsWith("C")) {
+					
+					command_line.commandList.add(0,inputLine);
+					inputLine=input.readLine();
+					command_line.commandList.add(0,inputLine);
+				}
 				else {
 					//The outputs here are for debugging
 					System.out.println("This is the Raw input");
@@ -141,4 +148,23 @@ public class SerialComm implements SerialPortEventListener {
 		t.start();
 		System.out.println("Started");
 	}
-}
+	
+	public static void Send(String command) {
+		System.out.println("Sending "+command+"...");
+		try{
+		output.write(command.getBytes());
+		}catch(Exception e){
+		e.printStackTrace();
+		}
+		System.out.println("Flushing output...");
+		try{
+		output.flush();
+		}catch(Exception e){
+		e.printStackTrace();
+		}
+		System.out.println("Done!");
+		}
+		
+		
+	}
+
