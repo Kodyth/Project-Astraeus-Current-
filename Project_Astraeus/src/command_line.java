@@ -101,65 +101,95 @@ public class command_line extends Application{
 						}
 						else if(command.equals("checkSoftware") == true){
 							enterCommand.clear();
-							commandList.add(0,"Current Software Status: Good");
+							//commandList.add(0,"Current Software Status: Good");
 							commandList.add(1,command);
 							
-							//Next lines are for testing serial output
+							//Send command to SerialComm
 							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeSoftware") == true){
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("checkBatteryCells") == true){
 							enterCommand.clear();
 							commandList.add(0, "Current Battery Status: Good");
 							commandList.add(1,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("checkSolarCells") == true) {
 							enterCommand.clear();
 							commandList.add(0, "Current Solar Cells Status: Good");
 							commandList.add(1,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("resetNavigation") == true) {
 							enterCommand.clear();
 							commandList.add(0, "Navigation for the CubeSat has been reset");
 							commandList.add(1,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("reboot") == true) {
 							enterCommand.clear();
 							commandList.add(0, "CubeSat Rebooting");
 							commandList.add(1,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeBatteryCells") == true) {
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeSolarCells") == true) {
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeNavigation") == true) {
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeOrientation") == true) {
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeMagnetometers") == true) {
 							enterCommand.clear();
 							commandList.add(0,command);
+							
+							//Send command to SerialComm
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("help")== true) {
@@ -243,7 +273,7 @@ public class command_line extends Application{
 		primaryStage.show();
 
 	}
-
+	
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
