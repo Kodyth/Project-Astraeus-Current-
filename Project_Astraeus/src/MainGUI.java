@@ -106,6 +106,14 @@ public class MainGUI extends Application{
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
             rData.setMinHeight(50);
+            rData.setOnAction(e -> {
+            	RDataGUI rdat = new RDataGUI();
+            	try {
+            	rdat.start(primaryStage,"LON");
+            	} catch (Exception e1) {
+            	e1.printStackTrace();
+            	}
+            });
             Button help = new Button("Control Cubesat/ View Commands");
             help.setMaxWidth(Double.MAX_VALUE);
             help.setMinHeight(50);

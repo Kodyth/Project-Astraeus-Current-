@@ -35,6 +35,18 @@ public  class DataLog {
 			System.out.println();
 		}
 	}
+	public static int GetLocation(String s){
+		int locationOfinfo=0;
+		if(DataLog.allData.size()>0){
+		for(int i =0;i<(DataLog.allData.get(DataLog.allData.size()-1).size()-1);i++){
+			if (DataLog.allData.get(DataLog.allData.size()-1).get(i).getType() == s){
+				locationOfinfo=i;
+			}
+		}
+		
+		}
+		return locationOfinfo;
+	}
 }
 			
 			
