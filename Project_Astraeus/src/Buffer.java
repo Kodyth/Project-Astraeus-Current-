@@ -54,7 +54,7 @@ public class Buffer {
 		DataLog.allData.add(dataPacket);
 
 		//Resets the counters after all of the data in the string has been processed
-		DataLog.Display();
+		//DataLog.Display();
 		if(i==4) {
 			i=0;
 			j=0;
