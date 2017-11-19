@@ -34,10 +34,9 @@ import javafx.util.Callback;
 public class RDataGUI extends Application{
 	private String datatype = "LON";
 	private TableView<Data> table = new TableView<Data>();
-	private final ObservableList<Data> data=FXCollections.observableArrayList();
-	private final ObservableList<ArrayList<Data>> fulldata=FXCollections.observableArrayList(DataLog.allData);
-   int locationOfinfo=0;
-	public static void main (String [] args) {	
+	
+	private final ArrayList<TableView<Data>> tables= new ArrayList<TableView<Data>>();
+			public static void main (String [] args) {	
 		launch(args);
 	}
 	
@@ -57,9 +56,57 @@ public class RDataGUI extends Application{
         mainLayout.getChildren().addAll(vLeft, vCenter, vRight);
         mainLayout.setStyle("-fx-background-color: WHITE");
         
-        table.setEditable(true);
+        for(int i=0;i<DataLog.allData.size();i++){
+        	tables.add(new TableView<Data>());
+        }
         
-        
+        for(int i=0;i<tables.size();i++){
+        	ObservableList<Data> data=FXCollections.observableArrayList();
+        	String measured=DataLog.allData.get(i).get(0).getType();
+        	TableColumn<Data, String> valuecol = new TableColumn<Data, String>(measured);
+            valuecol.setMinWidth(100);
+            valuecol.setCellValueFactory(
+                    new PropertyValueFactory<Data, String>("value"));
+            
+            TableColumn<Data, String> locationCol = new TableColumn<Data, String>("Recency");
+            locationCol.setMinWidth(100);
+            locationCol.setCellValueFactory(
+                    new PropertyValueFactory<Data, String>("order"));
+            
+            Task<Void> task = new Task<Void>() {
+          	  @Override
+          	  public Void call() throws Exception {
+          	    
+          	    while (true) {
+          	      
+          	      Platform.runLater(new Runnable() {
+          	        @Override
+          	        public void run() {
+          	          for(int i=0;i<DataLog.allData.size();i++){
+          	        	  for(int j=0;j<DataLog.allData.get(i).size();j++){
+          	        		  if (DataLog.allData.get(i).get(j).getType()==measured){
+          	        			  data.add(DataLog.allData.get(i).get(j));
+          	        		  }
+          	        	  }
+          	        		  
+          	          }
+          	        }				
+          	      });
+          	      //recommitting
+          	      Thread.sleep(1000);
+          	    }
+          	  }
+          	};
+          	Thread th = new Thread(task);
+          	th.setDaemon(true);
+          	th.start();
+
+            tables.get(i).setItems(data);
+            tables.get(i).getColumns().addAll(valuecol, locationCol );
+     
+
+            mainLayout.getChildren().addAll(tables.get(i));
+        }
       
         //        
 //       ArrayList<TableColumn<Data, String>> variableTables = new ArrayList<TableColumn<Data, String>>();
@@ -105,7 +152,7 @@ public class RDataGUI extends Application{
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage,String Datatype) {
 		
-		
+		ObservableList<Data> data=FXCollections.observableArrayList();
 
 		 primaryStage.setTitle("Astraeus");
          primaryStage.setWidth(850);

@@ -109,7 +109,7 @@ public class MainGUI extends Application{
             rData.setOnAction(e -> {
             	RDataGUI rdat = new RDataGUI();
             	try {
-            	rdat.start(primaryStage,"LON");
+            	rdat.start(primaryStage);
             	} catch (Exception e1) {
             	e1.printStackTrace();
             	}
