@@ -123,19 +123,31 @@ public class MainGUI extends Application{
             	e1.printStackTrace();
             	}
             });
+            
+            /**************LOGOUT*****************/
+        	Button logout = new Button();
+    		logout.setText("Logout");
+    		logout.setMaxWidth(100);
+    		logout.setOnAction(new EventHandler<ActionEvent>() {
+    			@Override public void handle(ActionEvent e) {
+    				loginGUI gui = new loginGUI();
+    				gui.start(primaryStage);
+    				UserAccount ua = null;
+    				ua.logout();
+    			}
+    		});
+            
+            
                                     
             vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
+            vRight.getChildren().add(logout);
+
 //>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             BarLengthForData bar1 = new BarLengthForData();
             BarLengthForData bar2 = new BarLengthForData();
-            
-            
-            
-            
-
-            
+              
              Label tempe = new Label();
              tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Label volta = new Label();
