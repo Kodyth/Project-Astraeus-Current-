@@ -88,52 +88,14 @@ public class RDataGUI extends Application{
           	Thread th = new Thread(task);
           	th.setDaemon(true);
           	th.start();
-//          	tables.get(i).setLayoutX(100+(10*i));
-//          	tables.get(i).setLayoutY(0);
+
             tables.get(i).setItems(data);
             tables.get(i).getColumns().addAll(valuecol, locationCol );
      
 
             vCenter.getChildren().addAll(tables.get(i));
         }
-      
-        //        
-//       ArrayList<TableColumn<Data, String>> variableTables = new ArrayList<TableColumn<Data, String>>();
-//       for(int i=0;i<DataLog.allData.size();i++){
-//       	variableTables.add( new TableColumn<Data, String>(DataLog.allData.get(i).get(0).getType()));
-//       }
-//       for(int i=0; i<variableTables.size();i++){
-//           variableTables.get(i).setMinWidth(100);
-//           variableTables.get(i).setCellValueFactory(
-//           new PropertyValueFactory<Data, String>("order"));
-//       	table.getColumns().add(variableTables.get(i));
-//       	Task<Void> task = new Task<Void>() {
-//          	  @Override
-//           	  public Void call() throws Exception {
-//          	    int l=i;
-//          	    while (true) {
-//          	      
-//          	      Platform.runLater(new Runnable() {
-//          	        @Override
-//          	        public void run() {
-//          	        
-//           	       
-//           	          for(int i=0;i<DataLog.allData.size();i++){
-//           	        	  for(int j=0;j<DataLog.allData.get(i).size();j++){
-//           	        		  if (DataLog.allData.get(i).get(j).getType()==variableTables.get(l).getProperty()){
-//           	        			  data.add(DataLog.allData.get(i).get(j));
-//           	        		  }
-//           	        	  }
-//           	        		  
-//           	          }
-//           	        }				
-//           	      });
-//           	      //recommitting
-//         	      Thread.sleep(1000);
-//         	    }
-//           	  }
-//	
-//        }
+ 
         Scene mainScene = new Scene(vCenter);
         primaryStage.setScene(mainScene);
         primaryStage.show();
@@ -182,13 +144,13 @@ public class RDataGUI extends Application{
       	        @Override
       	        public void run() {
       	          for(int i=0;i<DataLog.allData.get(0).size();i++){
-//      	        	  for(int j=0;j<DataLog.allData.get(i).size();j++){
+
       	        		  if (DataLog.allData.get(0).get(i).getType()==datatype){
       	        			  data.add(DataLog.allData.get(DataLog.allData.size()-1).get(i));
       	        		  }
       	        	  }
       	        		  
- //     	          }
+
       	        }				
       	      });
       	      //recommitting
