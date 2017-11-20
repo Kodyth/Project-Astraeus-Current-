@@ -105,49 +105,15 @@ public class MainGUI extends Application{
             rtData.setMinHeight(50);
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
-
-            rData.setMinHeight(50);
-            
-            /**************TUTORIAL***************/  
-            Button tutorial = new Button("Tutorial");
-            tutorial.setMaxWidth(Double.MAX_VALUE);
-            tutorial.setMinHeight(50);
-            
-            tutorial.setOnAction(e -> {  	
-            	Tutorial t = new Tutorial();
-
             rData.setMinHeight(50);
             rData.setOnAction(e -> {
             	RDataGUI rdat = new RDataGUI();
-
             	try {
             	rdat.start(primaryStage);
             	} catch (Exception e1) {
             	e1.printStackTrace();
             	}
             });
-
-            
-            /**************LOGOUT*****************/
-        	Button logout = new Button();
-    		logout.setText("Logout");
-    		logout.setMaxWidth(100);
-    		logout.setOnAction(new EventHandler<ActionEvent>() {
-    			@Override public void handle(ActionEvent e) {
-    				loginGUI gui = new loginGUI();
-    				gui.start(primaryStage);
-    				UserAccount ua = null;
-    				ua.logout();
-    			}
-    		});
-            
-            
-                                    
-            vCenter.getChildren().addAll(root, commandb, rtData, rData, tutorial);
-            vRight.getChildren().add(logout);
-
-//>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-
             Button help = new Button("Control Cubesat/ View Commands");
             help.setMaxWidth(Double.MAX_VALUE);
             help.setMinHeight(50);
@@ -156,7 +122,6 @@ public class MainGUI extends Application{
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             BarLengthForData bar1 = new BarLengthForData();
             BarLengthForData bar2 = new BarLengthForData();
-              
              Label tempe = new Label();
              tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Label volta = new Label();
@@ -186,7 +151,7 @@ public class MainGUI extends Application{
             	          tempe.setText("Temperature: " + (temperature/100) + "\n");
             	        }				
             	      });
-            	      //recommitting
+            	      
             	      Thread.sleep(1000);
             	    }
             	  }
@@ -199,8 +164,6 @@ public class MainGUI extends Application{
              primaryStage.setScene(mainScene);
              primaryStage.show();
 
-    	});
-
-
     	}
+
 }

@@ -22,19 +22,19 @@ import java.util.Enumeration;
 
 public class SerialComm implements SerialPortEventListener {
 	SerialPort serialPort;
-        //Define different port names for different platforms
+	//Define different port names for different platforms
 	private static final String PORT_NAMES[] = { 
 			"/dev/tty.usbserial-A9007UX1", // Mac OS X
 			"/dev/ttyUSB0", // Linux
-				"COM1", "COM2","COM3",
-				"COM4",
-			"COM5","COM9" // Windows
+			"COM1", "COM2","COM3",
+			"COM4",
+			"COM5","COM9","COM12" // Windows
 	};
 	/**
-	* A BufferedReader which will be fed by a InputStreamReader 
-	* converting the bytes into characters 
-	* making the displayed results codepage independent
-	*/
+	 * A BufferedReader which will be fed by a InputStreamReader 
+	 * converting the bytes into characters 
+	 * making the displayed results codepage independent
+	 */
 	private BufferedReader input;
 	/** The output stream to the port */
 	public static OutputStream output;
@@ -42,12 +42,13 @@ public class SerialComm implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	/** Default bits per second for COM port. */
 	private static final int DATA_RATE = 9600;
-	
+	private static String commandString;
+
 
 	public void initialize() {
-                // the next line is for Raspberry Pi and 
-                // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
-                System.setProperty("gnu.io.rxtx.SerialPorts", "COM4");
+		// the next line is for Raspberry Pi and 
+		// gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
+		System.setProperty("gnu.io.rxtx.SerialPorts", "COM12");
 
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -113,21 +114,23 @@ public class SerialComm implements SerialPortEventListener {
 				}
 				else if(inputLine.startsWith("C")) {
 					
-					command_line.commandList.add(0,inputLine);
 					inputLine=input.readLine();
-					command_line.commandList.add(0,inputLine);
+					commandString = inputLine;
+					
+					
+					System.out.println(commandString);
+					
 				}
 				else {
 					//The outputs here are for debugging
 					System.out.println("This is the Raw input");
-					System.out.println(inputLine);
-					System.out.println();
-					
+					System.out.println(inputLine+"\n");
+
 					//This is where the raw input string is sent to the buffer class to be processed.
 					Buffer.saveBuffer(inputLine);
 
 				}
-				
+
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}
@@ -148,23 +151,26 @@ public class SerialComm implements SerialPortEventListener {
 		t.start();
 		System.out.println("Started");
 	}
-	
+
 	public static void Send(String command) {
 		System.out.println("Sending "+command+"...");
 		try{
-		output.write(command.getBytes());
+			output.write(command.getBytes());
 		}catch(Exception e){
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		System.out.println("Flushing output...");
 		try{
-		output.flush();
+			output.flush();
 		}catch(Exception e){
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		System.out.println("Done!");
-		}
-		
-		
 	}
+
+	public static String getCommand() {
+		return commandString;
+	}
+
+}
 
