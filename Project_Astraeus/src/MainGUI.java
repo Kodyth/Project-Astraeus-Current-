@@ -24,28 +24,25 @@ import javafx.geometry.Pos;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-=======
  * FRANCE IS BACON
  * HAIL BRITTANIA
  * USA USA USA
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
  */
 public class MainGUI extends Application{
  private command_line command;
  private boolean trigger;
 
     public static void main(String[] args) {
-        launch(args);
-        
-        try {
+    	try {
 			SerialComm.Run();
+			System.out.println("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
+			//System.out.println("Test2");
 		}
+        launch(args);
+        
+        
     }
 
     	@Override
@@ -108,6 +105,7 @@ public class MainGUI extends Application{
             rtData.setMinHeight(50);
             Button rData = new Button("View Recorded Data");
             rData.setMaxWidth(Double.MAX_VALUE);
+
             rData.setMinHeight(50);
             
             /**************TUTORIAL***************/  
@@ -117,12 +115,18 @@ public class MainGUI extends Application{
             
             tutorial.setOnAction(e -> {  	
             	Tutorial t = new Tutorial();
+
+            rData.setMinHeight(50);
+            rData.setOnAction(e -> {
+            	RDataGUI rdat = new RDataGUI();
+
             	try {
-            	t.start(primaryStage);
+            	rdat.start(primaryStage);
             	} catch (Exception e1) {
             	e1.printStackTrace();
             	}
             });
+
             
             /**************LOGOUT*****************/
         	Button logout = new Button();
@@ -143,6 +147,11 @@ public class MainGUI extends Application{
             vRight.getChildren().add(logout);
 
 //>>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
+
+            Button help = new Button("Control Cubesat/ View Commands");
+            help.setMaxWidth(Double.MAX_VALUE);
+            help.setMinHeight(50);
+            vCenter.getChildren().addAll(root, commandb, rData, help);
             
             //creating bars for temp and voltage. arbitrary values inuted temporarily
             BarLengthForData bar1 = new BarLengthForData();
@@ -171,13 +180,13 @@ public class MainGUI extends Application{
             	        public void run() {
             	          double temperature = bar1.DataToBarLength("TMP",1);
             	          double voltage = bar2.DataToBarLength("VOL",1);
-            	          temp.setWidth(temperature);
-            	          volt.setWidth(voltage);
-            	          volta.setText("Voltage: " + voltage + "\n");
-            	          tempe.setText("Temperature: " + temperature + "\n");
+            	          temp.setWidth(temperature/400);
+            	          volt.setWidth(voltage/5);
+            	          volta.setText("Voltage: " + (voltage/100) + "\n");
+            	          tempe.setText("Temperature: " + (temperature/100) + "\n");
             	        }				
             	      });
-            	      
+            	      //recommitting
             	      Thread.sleep(1000);
             	    }
             	  }
@@ -190,6 +199,8 @@ public class MainGUI extends Application{
              primaryStage.setScene(mainScene);
              primaryStage.show();
 
-    	}
+    	});
 
+
+    	}
 }
