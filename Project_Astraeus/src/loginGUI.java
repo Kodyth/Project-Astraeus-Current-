@@ -122,24 +122,13 @@ public class loginGUI extends Application {
 		root.add(create, 2, 13);
 		create.setText("Create Account");
 		
-		Button logout = new Button();
-		root.add(logout, 13, 1);
-		logout.setText("Logout");
+	
 		
 		root.setStyle("-fx-background-color: WHITE");
 		Scene scene = new Scene(root, 850, 700);
 		primaryStage.setScene(scene);
 		loginstage = primaryStage;
-		primaryStage.show();
-
-		logout.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				loginGUI gui = new loginGUI();
-				gui.start(primaryStage);
-				ua.logout();
-			}
-		});
-			
+		primaryStage.show();	
 		
 		loginU.setOnAction(new EventHandler<ActionEvent>() {			
 			@Override public void handle(ActionEvent e) {	
