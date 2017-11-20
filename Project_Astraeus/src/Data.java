@@ -30,6 +30,7 @@ public class Data {
 	//Getters
 	public String getType() {return type;}
 	public double getValue() {return value;}
+	public String getValueS() {return Double.toString(value);}
 	public int getOrder() {return order;}
 	
 	//Setters
