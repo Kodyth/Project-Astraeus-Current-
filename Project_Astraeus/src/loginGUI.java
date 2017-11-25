@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class loginGUI extends Application {
-	
+
 	UserAccount ua = new UserAccount(UserAccount.username, UserAccount.password);
 	static boolean loginUser;
 	static int i=0;
@@ -37,7 +37,7 @@ public class loginGUI extends Application {
 		root.setMinSize(300, 300);
 		root.setVgap(5);
 		root.setHgap(5);
-		
+
 		//User Accounts
 		Text User = new Text("User Login");
 		User.setFill(Color.BLACK);
@@ -59,7 +59,7 @@ public class loginGUI extends Application {
 		passwordLoginTF.setManaged(false);
 		passwordLoginTF.setVisible(false);
 		CheckBox userPasswordBox = new CheckBox("Show/Hide password");
-		
+
 		//making it so the password is concealed unless the box to show it is checked
 		passwordLoginTF.managedProperty().bind(userPasswordBox.selectedProperty());
 		passwordLoginTF.visibleProperty().bind(userPasswordBox.selectedProperty());
@@ -70,7 +70,7 @@ public class loginGUI extends Application {
 		root.add(passwordLogin, 2, 5);
 		root.add(passwordLoginTF, 2, 5);
 		root.add(userPasswordBox, 2, 7);
-		
+
 		Button loginU = new Button();
 		loginU.setMaxWidth(500);
 		root.add(loginU, 2, 8);
@@ -97,7 +97,7 @@ public class loginGUI extends Application {
 		passwordLoginAdminTF.setManaged(false);
 		passwordLoginAdminTF.setVisible(false);
 		CheckBox adminPasswordBox = new CheckBox("Show/Hide password");
-		
+
 		//making it so the password is concealed unless the box to show it is checked
 		passwordLoginAdminTF.managedProperty().bind(adminPasswordBox.selectedProperty());
 		passwordLoginAdminTF.visibleProperty().bind(adminPasswordBox.selectedProperty());
@@ -108,7 +108,7 @@ public class loginGUI extends Application {
 		root.add(passwordLoginAdmin, 8, 5);
 		root.add(passwordLoginAdminTF, 8, 5);
 		root.add(adminPasswordBox, 8, 7);
-		
+
 		Button loginA = new Button();
 		loginA.setMaxWidth(500);
 		root.add(loginA, 8, 8);
@@ -121,54 +121,62 @@ public class loginGUI extends Application {
 		create.setMaxWidth(500);
 		root.add(create, 2, 13);
 		create.setText("Create Account");
-		
-	
-		
+
+
+
 		root.setStyle("-fx-background-color: WHITE");
 		Scene scene = new Scene(root, 850, 700);
 		primaryStage.setScene(scene);
 		loginstage = primaryStage;
 		primaryStage.show();	
 		
+		Text nothingL = new Text("Missing username and/or password");
+		Text loginfalse = new Text("Incorrect username or password");
+		
 		loginU.setOnAction(new EventHandler<ActionEvent>() {			
 			@Override public void handle(ActionEvent e) {	
-				if(usernameLogin.getText().isEmpty() | passwordLogin.getText().isEmpty()) {
-					Text nothingL = new Text("Missing username and/or password");
+				if(usernameLogin.getText().isEmpty() | passwordLogin.getText().isEmpty()) {					
 					nothingL.setFill(Color.BLACK);
 					root.getChildren().remove(nothingL);
 					root.add(nothingL, 2, 16);
 				}
 				else{
 					if(UserAccount.loggedin==true | UserAccount.loggedinAdmin==true) {	
-					Text logintrue = new Text("Someone's already logged in");	
-					logintrue.setFill(Color.BLACK);
-					logintrue.setFont(new Font(14));
-					if(i==0) {
-						root.add(logintrue, 2, 14);	
+						Text logintrue = new Text("Someone's already logged in");	
+						logintrue.setFill(Color.BLACK);
+						logintrue.setFont(new Font(14));
+						if(i==0) {
+							root.add(logintrue, 2, 14);	
+						}
+						i++;
 					}
-					i++;
-				}
-					
+
 					loginUser=true;
 					UserAccount.username = usernameLogin.getText();
 					UserAccount.password = passwordLogin.getText();
 					ua.login();
-				
+
 					if(UserAccount.login==true || UserAccount.loginAdmin==true) {
-					Text logintrue = new Text("Logged in as "+usernameLogin.getText());
-					logintrue.setFill(Color.BLACK);
-					root.add(logintrue, 14, 1);		
-					
-					MainGUI maingui = new MainGUI();
-	            	try {
-	            		maingui.start(primaryStage);
-	            	} catch (Exception e1) {
-	            	e1.printStackTrace();
-	            	}
-					
+
+						if(UserAccount.created==true) {
+							Tutorial tut = new Tutorial();
+							try {
+								tut.start(primaryStage);
+								UserAccount.created=false;
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+						else{
+							MainGUI maingui = new MainGUI();
+							try {
+								maingui.start(primaryStage);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}					
 					}
-					else {
-						Text loginfalse = new Text("Incorrect username or password");
+					else {				
 						loginfalse.setFill(Color.BLACK);
 						root.getChildren().remove(loginfalse);
 						root.add(loginfalse, 2, 17);
@@ -181,12 +189,11 @@ public class loginGUI extends Application {
 			@Override public void handle(ActionEvent e) {
 				loginUser=false;
 				if(usernameLoginAdmin.getText().isEmpty() | passwordLoginAdmin.getText().isEmpty()) {
-					Text nothingL = new Text("Missing username and/or password");
 					nothingL.setFill(Color.BLACK);
 					root.getChildren().remove(nothingL);
 					root.add(nothingL, 8, 16);
 				}
-				
+
 				else {
 					if(UserAccount.loggedin==true | UserAccount.loggedinAdmin==true) {
 						Text logintrue = new Text("Someone's already logged in");
@@ -204,21 +211,20 @@ public class loginGUI extends Application {
 						Text logintrue = new Text("Logged in as "+usernameLogin.getText());
 						logintrue.setFill(Color.BLACK);
 						root.add(logintrue, 14, 1);
-						
+
 						MainGUI maingui = new MainGUI();
-		            	try {
-		            		maingui.start(primaryStage);
-		            	} catch (Exception e1) {
-		            	e1.printStackTrace();
-		            	}
+						try {
+							maingui.start(primaryStage);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 					}
 					else {
-						Text loginfalse = new Text("Incorrect username or password");
 						loginfalse.setFill(Color.BLACK);
 						root.getChildren().remove(loginfalse);
 						root.add(loginfalse, 2, 16);
 					}
-					
+
 				}
 			}
 		});

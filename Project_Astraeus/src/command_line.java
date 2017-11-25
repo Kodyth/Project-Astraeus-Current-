@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -63,12 +64,25 @@ public class command_line extends Application{
 			
         /**************HELP***************/
         Button help = new Button("Help");
-        help.setMinHeight(50);
+        help.setMinHeight(40);
         help.setMinWidth(100);
         help.setOnAction(e -> {
 //        	Tutorial t = new Tutorial();
         	try {
 //        	t.start(primaryStage);
+        	} catch (Exception e1) {
+        	e1.printStackTrace();
+        	}
+        });
+        
+        Button backToMain = new Button("Back To Main Menu");
+        backToMain.setMinHeight(40);
+        backToMain.setMinWidth(100);
+        backToMain.setLayoutX(150);
+        backToMain.setOnAction(e -> {
+        	MainGUI mg = new MainGUI();
+        	try {
+        	mg.start(primaryStage);
         	} catch (Exception e1) {
         	e1.printStackTrace();
         	}
@@ -260,9 +274,7 @@ public class command_line extends Application{
 		//
 		commandLog.setText(commandListString);
 
-		cl_pane.getChildren().add(enterCommand);
-		cl_pane.getChildren().add(commandLog);
-		cl_pane.getChildren().add(help);
+		cl_pane.getChildren().addAll(enterCommand,commandLog,help, backToMain);
 		cl_pane.setStyle("-fx-background-color: WHITE");
 
 		//Set GUI to constant resolution (changeable in the future)

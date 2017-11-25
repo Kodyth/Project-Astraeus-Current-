@@ -30,22 +30,27 @@ public class Tutorial extends Application{
 	    
 	    VBox vbox = new VBox();
 	    vbox.setPadding(new Insets(10));
-	    vbox.setSpacing(8);
+	    vbox.setSpacing(200);
 	    vbox.setStyle("-fx-background-color: WHITE;");
 	    
-	    Scene tut1 = new Scene(hbox);
-        primaryStage.setScene(tut1);
-        primaryStage.show();
-        
+        Button exitTut = new Button("Exit Tutorial");
+         
         Image arrow = new Image(getClass().getResourceAsStream("Resources/arrow.png"));
         Button next = new Button();
         next.setGraphic(new ImageView(arrow));
         next.setStyle("-fx-background-color: WHITE");
         next.setMaxHeight(50);
         next.setMaxWidth(100);
+        next.setAlignment(Pos.CENTER_RIGHT);
         hbox.setAlignment(Pos.CENTER_RIGHT);
-        hbox.getChildren().add(next);
-             
+        
+        
+        vbox.getChildren().addAll(exitTut, next);
+        hbox.getChildren().add(vbox);
+	    Scene tut1 = new Scene(hbox);
+        primaryStage.setScene(tut1);
+        primaryStage.show();
+
         next.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				Scene tut2 = new Scene(vbox);
@@ -53,6 +58,14 @@ public class Tutorial extends Application{
 		        primaryStage.show();
 			}
 		});
+        
+        exitTut.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				MainGUI mg = new MainGUI();
+				mg.start(primaryStage);
+			}
+		});
+        
 	}
 }
 

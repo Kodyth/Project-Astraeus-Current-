@@ -9,6 +9,8 @@
  *
  */
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -84,14 +86,23 @@ public class createAccountGUI{
 		root.add(back, 3, 13);
 		back.setText("Go Back");
 		root.setStyle("-fx-background-color: WHITE");
-
+		
+		Text nothingL = new Text("Please fill out all fields");
+		Text nothingP = new Text("The passwords entered don't match");
+		Text created = new Text("Account Created");
+		Text notCreated = new Text("Username Already Exists");
 
 		create.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
+				root.getChildren().remove(nothingL);
+				root.getChildren().remove(nothingP);
+				root.getChildren().remove(notCreated);
+				root.getChildren().remove(created);
+				UserAccount.usernameTaken=false;
+				
 				selected = adminBox.isSelected();
-				if(usernameCreate.getText().isEmpty() | passwordCreate.getText().isEmpty()) {
-					Text nothingL = new Text("Please fill out all fields");
-					if(i==0) {
+				if(usernameCreate.getText().isEmpty() | passwordCreate.getText().isEmpty()) {		
+					if(i==0) {		
 					root.add(nothingL, 2, 16);
 					}
 					i++;
@@ -99,17 +110,26 @@ public class createAccountGUI{
 				if(!passwordCreate.getText().isEmpty() && !vpassword.getText().isEmpty()) {
 					String pass = passwordCreate.getText();
 					String passV = vpassword.getText();
-					if(!pass.equals(passV)) {
-						Text nothingP = new Text("The passwords entered don't match");
+					if(!pass.equals(passV)) {			
 						root.add(nothingP, 2, 16);
 					}
 
 					else {
 							UserAccount.username = usernameCreate.getText();
 							UserAccount.password = passwordCreate.getText();
-							UserAccount.createNewAccount();
+							try {
+								UserAccount.checkUsername();
+								if(UserAccount.usernameTaken==false) {
+									UserAccount.createNewAccount();
+								}
+								else {
+									root.add(notCreated, 2, 16);
+								}
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+												
 							if(UserAccount.created==true) {
-								Text created = new Text("Account Created");
 								root.add(created, 2, 16);
 							}
 					}
