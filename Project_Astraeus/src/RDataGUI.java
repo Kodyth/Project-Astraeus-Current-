@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 
 import javafx.scene.control.TableView;
@@ -38,12 +38,11 @@ public class RDataGUI extends Application{
 		primaryStage.setTitle("Astraeus");
         primaryStage.setWidth(850);
         primaryStage.setHeight(700);
-        
 
         HBox vCenter = new HBox (40);
         vCenter.setMinWidth(282);
 
-        
+        if(DataLog.allData.size()<=0){}else{
         for(int i=0;i<DataLog.allData.get(0).size();i++){
         	tables.add(new TableView<Data>());
         }
@@ -99,10 +98,20 @@ public class RDataGUI extends Application{
         Scene mainScene = new Scene(vCenter);
         primaryStage.setScene(mainScene);
         primaryStage.show();
-	}
+	}}
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage,String Datatype) {
-		
+		Button mData = new Button("Back");
+        mData.setMaxWidth(Double.MAX_VALUE);
+        mData.setMinHeight(50);
+        mData.setOnAction(e -> {
+        	MainGUI mdat = new MainGUI();
+        	try {
+        	mdat.start(primaryStage);
+        	} catch (Exception e1) {
+        	e1.printStackTrace();
+        	}});
+        
 		ObservableList<Data> data=FXCollections.observableArrayList();
 
 		 primaryStage.setTitle("Astraeus");
@@ -119,7 +128,7 @@ public class RDataGUI extends Application{
          vCenter.setMinWidth(282);
          mainLayout.getChildren().addAll(vLeft, vCenter, vRight);
          mainLayout.setStyle("-fx-background-color: WHITE");
- 
+         vCenter.getChildren().addAll(mData);
         table.setEditable(true);
        
         Datatype = datatype;
@@ -166,7 +175,8 @@ public class RDataGUI extends Application{
         table.getColumns().addAll(valuecol, locationCol );
  
 
-        vCenter.getChildren().addAll(table);
+        vCenter.getChildren().addAll(mData,table);
+        
  
 
          
