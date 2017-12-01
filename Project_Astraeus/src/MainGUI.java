@@ -80,15 +80,7 @@ public class MainGUI extends Application{
         // This is a temporary stand-in for the actual map function
             Image dummyMap = new Image("Resources/dummymap.png");
             ImageView map = new ImageView(dummyMap);
-            map.setOnMouseClicked(e -> {
-            	RDataGUI rdat = new RDataGUI();
-            	try {
-            		Stage secondary=new Stage();
-            	rdat.start(secondary);
-            	} catch (Exception e1) {
-            	e1.printStackTrace();
-            	}
-            });
+
             map.setFitWidth(274);
             map.setFitHeight(285);
             vLeft.getChildren().addAll(cubev, map);
