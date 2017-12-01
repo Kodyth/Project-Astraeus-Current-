@@ -80,6 +80,15 @@ public class MainGUI extends Application{
         // This is a temporary stand-in for the actual map function
             Image dummyMap = new Image("Resources/dummymap.png");
             ImageView map = new ImageView(dummyMap);
+            map.setOnMouseClicked(e -> {
+            	RDataGUI rdat = new RDataGUI();
+            	try {
+            		Stage secondary=new Stage();
+            	rdat.start(secondary);
+            	} catch (Exception e1) {
+            	e1.printStackTrace();
+            	}
+            });
             map.setFitWidth(274);
             map.setFitHeight(285);
             vLeft.getChildren().addAll(cubev, map);
@@ -135,11 +144,27 @@ public class MainGUI extends Application{
              Label volta = new Label();
              volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
              Rectangle temp = new Rectangle();
-             
+             temp.setOnMouseClicked(e -> {
+             	RDataGUI rdat = new RDataGUI();
+             	try {
+             		Stage secondary=new Stage();
+             	rdat.start(secondary, "TMP");
+             	} catch (Exception e1) {
+             	e1.printStackTrace();
+             	}
+             });
              temp.setHeight(50);
              temp.setFill(Color.web("RED"));
              Rectangle volt = new Rectangle();
-             
+             volt.setOnMouseClicked(e -> {
+             	RDataGUI rdat = new RDataGUI();
+             	try {
+             		Stage secondary=new Stage();
+             	rdat.start(secondary, "VOL");
+             	} catch (Exception e1) {
+             	e1.printStackTrace();
+             	}
+             });
              Rectangle loc = new Rectangle();
              loc.setFill(Color.web("BLUE"));
              loc.setHeight(10);
@@ -158,8 +183,8 @@ public class MainGUI extends Application{
             	        public void run() {
             	          double temperature = bar1.DataToBarLength("TMP",1);
             	          double voltage = bar2.DataToBarLength("VOL",1);
-            	          double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+600;
-            	          double locX= (lon.DataToBarLength("LON", 100)*.9);
+            	          double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+500;
+            	          double locX= (lon.DataToBarLength("LON", 100)*.8);
             	          loc.setX(locX);
             	          loc.setY(locY);
             	          temp.setWidth(temperature/400);
