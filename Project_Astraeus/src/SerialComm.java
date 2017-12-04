@@ -23,13 +23,13 @@ import java.util.Enumeration;
 public class SerialComm implements SerialPortEventListener {
 	SerialPort serialPort;
 	//Define different port names for different platforms
+	
+	private static String portNum = "COM4";
 	private static final String PORT_NAMES[] = { 
-			"/dev/tty.usbserial-A9007UX1", // Mac OS X
-			"/dev/ttyUSB0", // Linux
-			"COM1", "COM2","COM3",
-			"COM4",
-			"COM5","COM9","COM12" // Windows
+			 portNum
 	};
+	
+	
 	/**
 	 * A BufferedReader which will be fed by a InputStreamReader 
 	 * converting the bytes into characters 
@@ -44,11 +44,14 @@ public class SerialComm implements SerialPortEventListener {
 	private static final int DATA_RATE = 9600;
 	private static String commandString;
 
+	
+	
+	
 
 	public void initialize() {
 		// the next line is for Raspberry Pi and 
 		// gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
-		System.setProperty("gnu.io.rxtx.SerialPorts", "COM4");
+		System.setProperty("gnu.io.rxtx.SerialPorts", portNum);
 
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -138,8 +141,9 @@ public class SerialComm implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
-	public static void Run()  throws Exception {
+	public static void Run(String input)  throws Exception {
 		SerialComm main = new SerialComm();
+		portNum=input;
 		main.initialize();
 		Thread t=new Thread() {
 			public void run() {
