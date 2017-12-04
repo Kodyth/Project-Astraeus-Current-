@@ -60,7 +60,8 @@ public class MainGUI extends Application{
 
 
 		//Creating Horizontal Box and Vertical Boxes that make up the main scene
-		HBox mainLayout = new HBox();
+		HBox mainLayout2 = new HBox();
+            Pane mainLayout=new Pane();
 		VBox vLeft = new VBox(30);
 		vLeft.setMinWidth(284);
 		vLeft.setPadding(new Insets(15, 0, 15, 0));
@@ -69,7 +70,8 @@ public class MainGUI extends Application{
 		VBox vCenter = new VBox (40);
 		vCenter.setMinWidth(282);
 		HBox hRight = new HBox(10);
-		mainLayout.getChildren().addAll(vLeft, vCenter, vRight, hRight);
+		mainLayout2.getChildren().addAll(vLeft, vCenter, vRight);
+		             mainLayout.getChildren().add(mainLayout2);
 		mainLayout.setStyle("-fx-background-color: WHITE");
 
 		//Creating the image for use in the GUI
@@ -115,7 +117,8 @@ public class MainGUI extends Application{
 		rData.setOnAction(e -> {
 			RDataGUI rdat = new RDataGUI();
 			try {
-				rdat.start(primaryStage);
+				Stage secondary=new Stage();
+				             	rdat.start(secondary);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -155,6 +158,8 @@ public class MainGUI extends Application{
 		//creating bars for temp and voltage. arbitrary values inuted temporarily
 		BarLengthForData bar1 = new BarLengthForData();
 		BarLengthForData bar2 = new BarLengthForData();
+		BarLengthForData lat = new BarLengthForData();
+		             BarLengthForData lon = new BarLengthForData();
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
 		Label volta = new Label();
@@ -164,10 +169,15 @@ public class MainGUI extends Application{
 		temp.setHeight(50);
 		temp.setFill(Color.web("RED"));
 		Rectangle volt = new Rectangle();
+		Rectangle loc = new Rectangle();
+		              loc.setFill(Color.web("BLUE"));
+		              loc.setHeight(10);
+		              loc.setWidth(10);
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("RED"));
-		Task task = new Task<Void>() {
+		@SuppressWarnings("rawtypes")
+		 			Task task = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
 
@@ -178,6 +188,10 @@ public class MainGUI extends Application{
 						public void run() {
 							double temperature = bar1.DataToBarLength("TMP",1);
 							double voltage = bar2.DataToBarLength("VOL",1);
+							double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+600;
+							             	          double locX= (lon.DataToBarLength("LON", 100)*.9);
+							             	          loc.setX(locX);
+							             	          loc.setY(locY);
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
 							volta.setText("Voltage: " + (voltage/100) + "\n");
@@ -224,6 +238,7 @@ public class MainGUI extends Application{
 		HBox hb1 = new HBox();
 		hb1.getChildren().addAll(filename, save);
 		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt, hb1);
+		mainLayout.getChildren().add(loc);
 		Scene mainScene = new Scene(mainLayout);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
