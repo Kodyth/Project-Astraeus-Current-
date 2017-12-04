@@ -68,7 +68,6 @@ public class MainGUI extends Application{
 		VBox vCenter = new VBox (40);
 		vCenter.setMinWidth(282);
 		HBox hRight = new HBox(10);
-//		hRight.setAlignment(Pos.TOP_RIGHT);
 		mainLayout.getChildren().addAll(vLeft, vCenter, vRight, hRight);
 		mainLayout.setStyle("-fx-background-color: WHITE");
 
@@ -121,7 +120,6 @@ public class MainGUI extends Application{
 			}
 		});
 
-
 		/**************LOGOUT*****************/
 		Button logout = new Button();
 		Image logoutImage = new Image(getClass().getResourceAsStream("Resources/logout_button.png"));
@@ -147,10 +145,10 @@ public class MainGUI extends Application{
 				t.start(primaryStage);
 			}
 		});
-		
+
 
 		hRight.getChildren().addAll(logout);
-		
+
 		vCenter.getChildren().addAll(root, commandb, rData, tutorial);
 
 		//creating bars for temp and voltage. arbitrary values inuted temporarily
@@ -190,7 +188,7 @@ public class MainGUI extends Application{
 				}
 			}
 		};
-		
+
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
@@ -201,6 +199,8 @@ public class MainGUI extends Application{
 
 
 	}
-
-
 }
+
+
+
+

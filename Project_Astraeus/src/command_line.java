@@ -33,18 +33,17 @@ public class command_line extends Application{
 
 	private Pane cl_pane;
 	private String command;
+	private String response;
 	public static List<String> commandList = new ArrayList<String>();
 	public List<String> commandListDisplay = new ArrayList<String>();
 	private String commandListString;
 	private String  naviValues = "";
-	private Alert alertDialog = new Alert(null);
+	private String commandReturn;
+	private static Alert alertDialog = new Alert(null);
 	private TextInputDialog inputTextBox = new TextInputDialog();
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		cl_pane = new Pane();
-		
-		//pad Array Lists with 1 blank value (remove null)
-		//commandList.add("");
 		
 		//Create elements and add to the pane
 		TextField enterCommand = new TextField();
@@ -128,29 +127,42 @@ public class command_line extends Application{
 							commandList.add(0,command);
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("checkSolarCells") == true) {
 							enterCommand.clear();
 							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("CubeSat Solar Cells status is green!");
-							alertDialog.show();
+							alertDialog.setHeaderText("Retrieving Solar Cells Status...");
+							alertDialog.showAndWait();
 							commandList.add(0,command);
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command); 
+							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+							response = SerialComm.getCommand();
+							alertDialog.setAlertType(AlertType.CONFIRMATION);
+							alertDialog.setHeaderText(response);
+							alertDialog.show();
+							commandList.add(0,response);
+							
 						}
 						
 						else if(command.equals("resetNavigation") == true) {
 							enterCommand.clear();
 							commandList.add(0, command);
 							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("CubeSat navigation reset.");
-							alertDialog.show();
+							alertDialog.setHeaderText("Resetting CubeSat Navigation...");
+							alertDialog.showAndWait();
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command);
+							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+							response = SerialComm.getCommand();
+							alertDialog.setAlertType(AlertType.CONFIRMATION);
+							alertDialog.setHeaderText(response);
+							alertDialog.show();
+							commandList.add(0,response);
 						}
 						
 						else if(command.equals("reboot") == true) {
@@ -158,11 +170,16 @@ public class command_line extends Application{
 							commandList.add(0, command);
 							alertDialog.setAlertType(AlertType.CONFIRMATION);
 							alertDialog.setHeaderText("CubeSat is now rebooting.");
-							alertDialog.show();
-							
+							alertDialog.showAndWait();
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command);
+							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+							response = SerialComm.getCommand();
+							alertDialog.setAlertType(AlertType.CONFIRMATION);
+							alertDialog.setHeaderText(response);
+							alertDialog.show();
+							commandList.add(0,response);
 						}
 						
 						else if(command.equals("changeBatteryCells") == true) {
@@ -170,7 +187,7 @@ public class command_line extends Application{
 							commandList.add(0,command);
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeSolarCells") == true) {
@@ -178,7 +195,7 @@ public class command_line extends Application{
 							commandList.add(0,command);
 							
 							//Send command to SerialComm
-							//SerialComm.Send(command);
+							SerialComm.Send(command);
 						}
 						
 						else if(command.equals("changeNavigation") == true) {
@@ -225,7 +242,7 @@ public class command_line extends Application{
 							enterCommand.clear();
 							alertDialog.setAlertType(AlertType.CONFIRMATION);
 							alertDialog.setHeaderText("changeBatteryCells:		Toggle battery cells On/Off\n"
-									+ "changeMagnetometers:		Toggle control magnetometers On/Off\n"
+									+ "changeMagnetometers: 	Toggle control magnetometers On/Off\n"
 									+ "changeNavigation:		Adjust current navigation settings (x,y,z)\n"
 									+ "changeOrientation:		Adjust current orientation settings (x,y,z)\n"
 									+ "changeSolarCells:		Toggle solar cells On/Off\n"
@@ -250,7 +267,6 @@ public class command_line extends Application{
 						for(int i =0; i<commandListDisplay.size();i++) {
 							commandListString = commandListString + commandListDisplay.get(i)+" \n";
 						}
-						
 						
 						commandLog.setText(commandListString);
 						
@@ -296,6 +312,8 @@ public class command_line extends Application{
 	public static void main(String[] args)	{	launch(args);	}
 
 	}
+
+	
 class CommandError extends Exception{
 	public CommandError() {}
 }		

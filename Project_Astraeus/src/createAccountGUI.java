@@ -29,20 +29,24 @@ public class createAccountGUI{
 		root.setMinSize(300, 300);
 		root.setVgap(5);
 		root.setHgap(5);
-
+		
+		Text createAccount = new Text("Create An Account");
+		createAccount.setStyle("-fx-text-fill: BLACK; -fx-font: 16 century-gothic; ");
+		root.add(createAccount, 2, 2);
+		
 		Text username = new Text("Username:");
-		root.add(username, 1, 2);
+		root.add(username, 1, 4);
 		TextField usernameCreate = new TextField();
 		usernameCreate.setPrefColumnCount(10);
-		root.add(usernameCreate, 2, 2);
+		root.add(usernameCreate, 2, 4);
 
 		Text password = new Text("Password:");
-		root.add(password, 1, 5);
+		root.add(password, 1, 7);
 		final TextField passwordCreate = new TextField();
 		passwordCreate.setPrefColumnCount(10);
 
 		Text verifyPassword = new Text("Verify Password:");
-		root.add(verifyPassword, 1, 8);
+		root.add(verifyPassword, 1, 9);
 		final TextField vpassword = new TextField();
 		vpassword.setPrefColumnCount(10);
 			
@@ -67,23 +71,23 @@ public class createAccountGUI{
 		vpassword.textProperty().bindBidirectional(passwordsV.textProperty());
 		vpassword.setPrefColumnCount(17);
 
-		root.add(vpassword, 2, 8);
-		root.add(passwords, 2, 5);
-		root.add(passwordsV, 2, 8);
-		root.add(showPass, 2, 10);
-		root.add(passwordCreate, 2, 5);
+		root.add(vpassword, 2, 9);
+		root.add(passwords, 2, 7);
+		root.add(passwordsV, 2, 9);
+		root.add(showPass, 2, 11);
+		root.add(passwordCreate, 2, 7);
 		
 		CheckBox adminBox = new CheckBox("Admin Account");
-		root.add(adminBox, 2, 11);
+		root.add(adminBox, 2, 13);
 
 		Button create = new Button();
 		create.setMaxWidth(500);
-		root.add(create, 2, 13);
+		root.add(create, 2, 14);
 		create.setText("Create Account");
 
 		Button back = new Button();
 		back.setMaxWidth(500);
-		root.add(back, 3, 13);
+		root.add(back, 3, 14);
 		back.setText("Go Back");
 		root.setStyle("-fx-background-color: WHITE");
 		
