@@ -243,6 +243,7 @@ public class MainGUI extends Application{
 		Button launch = new Button("Launch");
 		launch.setOnAction(e -> {
 			try {
+				new COMPORT(serial.getText());
 				SerialComm.Run(serial.getText());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

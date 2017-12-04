@@ -24,7 +24,7 @@ public class SerialComm implements SerialPortEventListener {
 	SerialPort serialPort;
 	//Define different port names for different platforms
 	
-	private static String portNum = "COM4";
+	private static String portNum = COMPORT.portNum;
 	private static final String PORT_NAMES[] = { 
 			 portNum
 	};
@@ -47,6 +47,10 @@ public class SerialComm implements SerialPortEventListener {
 	
 	
 	
+
+	public SerialComm(String input2) {
+		portNum=input2;
+	}
 
 	public void initialize() {
 		// the next line is for Raspberry Pi and 
@@ -142,8 +146,8 @@ public class SerialComm implements SerialPortEventListener {
 	}
 
 	public static void Run(String input)  throws Exception {
-		SerialComm main = new SerialComm();
-		portNum=input;
+		SerialComm main = new SerialComm(input);
+		
 		main.initialize();
 		Thread t=new Thread() {
 			public void run() {
