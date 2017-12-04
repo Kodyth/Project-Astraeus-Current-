@@ -23,6 +23,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+
 
 
 /**
@@ -269,7 +273,10 @@ public class MainGUI extends Application{
 		hb1.getChildren().addAll(filename, save);
 		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt, hb1);
 		mainLayout.getChildren().add(loc);
-		Scene mainScene = new Scene(mainLayout);
+		MenuBar menubar = MenuBarmaker();
+		BorderPane border = new BorderPane(mainlayout);
+		border.setTop(menubar);
+		Scene mainScene = new Scene(border);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 
@@ -284,6 +291,54 @@ public class MainGUI extends Application{
 		});
 		mainLayout.getChildren().add(open);
 	}
+	
+	MenuBar MenuBarmaker() {
+		Menu astraeus = new Menu("Astreaus"); 
+		Menu file = new Menu("File");
+		Menu help = new Menu("Help");
+		
+		MenuItem disconnect = new MenuItem("Disconnect");
+		MenuItem logout = new MenuItem("logout");
+		MenuItem open = new MenuItem("Open");
+		MenuItem save = new MenuItem("Save");
+		MenuItem helpb = new MenuItem("Help");
+		
+		//disconnect.setOnAction(e ->);
+		
+		logout.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				loginGUI gui = new loginGUI();
+				gui.start(primaryStage);
+				UserAccount ua = null;
+				ua.logout();
+			}
+		});
+		open.setOnAction(e -> {
+			try {
+				import_data.read();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		save.setOnAction(e -> {
+			try {
+				export_data.write();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		//helpb.setOnAction(e ->);
+		
+		astraeus.getItems().addAll(disconnect, logout);
+		file.getItems().addAll(open, save);
+		help.getItems().add(:helpb);
+		MenuBar menubar = new MenuBar(astraeus, file, help);
+		return menubar;
+	}
+
+
 }
 
 //hi
