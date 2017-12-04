@@ -176,7 +176,7 @@ public class MainGUI extends Application{
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("RED"));
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings("rawtypes")//test
 		 			Task task = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
