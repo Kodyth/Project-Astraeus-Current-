@@ -210,7 +210,7 @@ public class MainGUI extends Application{
 		
 		//creating text field and save
 		TextField filename = new TextField();
-		serial.setPromptText("File name");
+		filename.setPromptText("File name");
 		Button save = new Button("Save");
 		launch.setOnAction(e -> {
 			try {
