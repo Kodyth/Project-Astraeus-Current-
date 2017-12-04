@@ -103,7 +103,7 @@ public class command_line extends Application{
 			if(e.getCode() == KeyCode.ENTER){
 
 				try {
-					//if(ua.checkAdmin()==true) {
+					if(ua.checkAdmin()==true) {
 						if(enterCommand.getText().trim().isEmpty() == false){
 
 							command = enterCommand.getText();
@@ -318,13 +318,13 @@ public class command_line extends Application{
 
 						}
 
-					//}
+					}
 					//if user is not an admin
-					//else{
-					//	alertDialog.setAlertType(AlertType.WARNING);
-					//	alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
-					//	alertDialog.show();
-					//}
+					else{
+						alertDialog.setAlertType(AlertType.WARNING);
+						alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
+						alertDialog.show();
+					}
 					
 					}
 
