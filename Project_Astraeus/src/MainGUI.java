@@ -272,7 +272,16 @@ public class MainGUI extends Application{
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 
-
+		Button open = new Button("open");
+		open.setOnAction(e -> {
+			try {
+				import_data.read();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		mainLayout.getChildren().add(open);
 	}
 }
 

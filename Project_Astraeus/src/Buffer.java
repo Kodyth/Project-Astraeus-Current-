@@ -30,7 +30,6 @@ public class Buffer {
 		String[] splitData= buffer.split(",");
 		
 		//Temp hard coded values
-		//****These values will be adjustable by the user in sprint 2*****
 		dataType[0]= "LAT";
 		dataType[1]= "LON";
 		dataType[2]= "TMP";
