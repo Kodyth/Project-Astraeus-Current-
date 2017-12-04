@@ -40,233 +40,249 @@ public class command_line extends Application{
 	private String commandReturn;
 	private static Alert alertDialog = new Alert(null);
 	private TextInputDialog inputTextBox = new TextInputDialog();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		cl_pane = new Pane();
-		
+
 		//Create elements and add to the pane
 		TextField enterCommand = new TextField();
 		enterCommand.setLayoutX(220);
 		enterCommand.setLayoutY(400);
 		enterCommand.setPrefSize(400,12);
-		enterCommand.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: GREEN;");
+		enterCommand.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: WHITE;");
 		TextArea commandLog = new TextArea();
 		commandLog.setLayoutX(220);
 		commandLog.setLayoutY(50);
 		commandLog.setPrefSize(400, 350);
 		commandLog.setEditable(false);
-		commandLog.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: GREEN;");
-		Button returnToMain = new Button();
+		commandLog.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: WHITE;");
+		Button returnToMain = new Button("Return to Main");
 		returnToMain.setMaxHeight(50);
 		returnToMain.setMaxWidth(100);
-			
-        /**************HELP***************/
-        Button help = new Button("Help");
-        help.setMinHeight(50);
-        help.setMinWidth(100);
-        help.setOnAction(e -> {
-//        	Tutorial t = new Tutorial();
-        	try {
-//        	t.start(primaryStage);
-        	} catch (Exception e1) {
-        	e1.printStackTrace();
-        	}
-        });
-		
-		
+		returnToMain.setLayoutX(740);
+		returnToMain.setLayoutY(620);
+
+		/**************HELP***************/
+		Button help = new Button("Help");
+		help.setMinHeight(50);
+		help.setMinWidth(100);
+		help.setOnAction(e -> {
+			//        	Tutorial t = new Tutorial();
+			try {
+				//        	t.start(primaryStage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+
+
 		//Event Handling for command entered
+		UserAccount ua = new UserAccount();
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
 
 				try {
+					if(ua.checkAdmin()==true) {
+						if(enterCommand.getText().trim().isEmpty() == false){
 
-					if(enterCommand.getText().trim().isEmpty() == false){
+							command = enterCommand.getText();
 
-						command = enterCommand.getText();
-
-						if(command.contains(","))
-						{
-							throw new CommandError();
-						}
-						//else if(command.equals("checkSoftware") == true){
-						//	enterCommand.clear();
-						//	//commandList.add(0,"Current Software Status: Good");
-						//	commandList.add(1,command);							
-						//	
-						//	//Send command to SerialComm
-						//	//SerialComm.Send(command);
-						//}
-						
-						//else if(command.equals("changeSoftware") == true){
-						//	enterCommand.clear();
-						//	commandList.add(0,command);
-						//	
-						//	//Send command to SerialComm
-						//	//SerialComm.Send(command);
-						//}
-						
-						else if(command.equals("checkBatteryCells") == true){
-							enterCommand.clear();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("CubeSat Battery Cells status is green!");
-							alertDialog.show();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							SerialComm.Send(command);
-						}
-						
-						else if(command.equals("checkSolarCells") == true) {
-							enterCommand.clear();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("Retrieving Solar Cells Status...");
-							alertDialog.showAndWait();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							SerialComm.Send(command); 
-							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
-							response = SerialComm.getCommand();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText(response);
-							alertDialog.show();
-							commandList.add(0,response);
-							
-						}
-						
-						else if(command.equals("resetNavigation") == true) {
-							enterCommand.clear();
-							commandList.add(0, command);
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("Resetting CubeSat Navigation...");
-							alertDialog.showAndWait();
-							
-							//Send command to SerialComm
-							SerialComm.Send(command);
-							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
-							response = SerialComm.getCommand();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText(response);
-							alertDialog.show();
-							commandList.add(0,response);
-						}
-						
-						else if(command.equals("reboot") == true) {
-							enterCommand.clear();
-							commandList.add(0, command);
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("CubeSat is now rebooting.");
-							alertDialog.showAndWait();
-							
-							//Send command to SerialComm
-							SerialComm.Send(command);
-							try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
-							response = SerialComm.getCommand();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText(response);
-							alertDialog.show();
-							commandList.add(0,response);
-						}
-						
-						else if(command.equals("changeBatteryCells") == true) {
-							enterCommand.clear();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							SerialComm.Send(command);
-						}
-						
-						else if(command.equals("changeSolarCells") == true) {
-							enterCommand.clear();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							SerialComm.Send(command);
-						}
-						
-						else if(command.equals("changeNavigation") == true) {
-							enterCommand.clear();
-							inputTextBox.setHeaderText("Enter the new navigation values, seperated by commas then click ok.");
-							naviValues = inputTextBox.showAndWait().get();
-							
-							System.out.println(naviValues);
-							if(naviValues.isEmpty()) {
-								alertDialog.setAlertType(AlertType.WARNING);
-								alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
-								alertDialog.show();
+							if(command.contains(","))
+							{
+								throw new CommandError();
 							}
-							else {
+							//else if(command.equals("checkSoftware") == true){
+							//	enterCommand.clear();
+							//	//commandList.add(0,"Current Software Status: Good");
+							//	commandList.add(1,command);							
+							//	
+							//	//Send command to SerialComm
+							//	//SerialComm.Send(command);
+							//}
+
+							//else if(command.equals("changeSoftware") == true){
+							//	enterCommand.clear();
+							//	commandList.add(0,command);
+							//	
+							//	//Send command to SerialComm
+							//	//SerialComm.Send(command);
+							//}
+
+							else if(command.equals("checkBatteryCells") == true){
+								enterCommand.clear();
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
-								alertDialog.setHeaderText("User input accepted, sending to CubeSat");
+								alertDialog.setHeaderText("CubeSat Battery Cells status is green!");
 								alertDialog.show();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
 							}
-							command = command+" "+naviValues;
-							commandList.add(0,command);
-							
-							
-							//Send command to SerialComm
-							//SerialComm.Send(command);
+
+							else if(command.equals("checkSolarCells") == true) {
+								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText("Retrieving Solar Cells Status...");
+								alertDialog.showAndWait();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command); 
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								commandList.add(0,response);
+
+							}
+
+							else if(command.equals("resetNavigation") == true) {
+								enterCommand.clear();
+								commandList.add(0, command);
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText("Resetting CubeSat Navigation...");
+								alertDialog.showAndWait();
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								commandList.add(0,response);
+							}
+
+							else if(command.equals("reboot") == true) {
+								enterCommand.clear();
+								commandList.add(0, command);
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText("CubeSat is now rebooting.");
+								alertDialog.showAndWait();
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								commandList.add(0,response);
+							}
+
+							else if(command.equals("changeBatteryCells") == true) {
+								enterCommand.clear();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+							}
+
+							else if(command.equals("changeSolarCells") == true) {
+								enterCommand.clear();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+							}
+
+							else if(command.equals("changeNavigation") == true) {
+								enterCommand.clear();
+								inputTextBox.setHeaderText("Enter the new navigation values, seperated by commas then click ok.");
+								naviValues = inputTextBox.showAndWait().get();
+
+								System.out.println(naviValues);
+								if(naviValues.isEmpty()) {
+									alertDialog.setAlertType(AlertType.WARNING);
+									alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
+									alertDialog.show();
+								}
+								else {
+									alertDialog.setAlertType(AlertType.CONFIRMATION);
+									alertDialog.setHeaderText("User input accepted, sending to CubeSat");
+									alertDialog.show();
+								}
+								command = command+" "+naviValues;
+								commandList.add(0,command);
+
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+							}
+
+							else if(command.equals("changeOrientation") == true) {
+								enterCommand.clear();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+							}
+
+							else if(command.equals("changeMagnetometers") == true) {
+								enterCommand.clear();
+								commandList.add(0,command);
+
+								//Send command to SerialComm
+								SerialComm.Send(command);
+							}
+
+							else if(command.equals("help")== true) {
+								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText("changeBatteryCells:		Toggle battery cells On/Off\n"
+										+ "changeMagnetometers: 	Toggle control magnetometers On/Off\n"
+										+ "changeNavigation:		Adjust current navigation settings (x,y,z)\n"
+										+ "changeOrientation:		Adjust current orientation settings (x,y,z)\n"
+										+ "changeSolarCells:		Toggle solar cells On/Off\n"
+										+ "changeSoftware:			Update software (file)\n"
+										+ "checkBatteryCells:		Gives current battery cell status\n"
+										+ "checkSolarCells:			Gives current solar cell status\n"
+										+ "checkSoftware:			Gives current version of software\n"
+										+ "resetNavigation:			Resets navigation parameters to initial values\n"
+										+ "reboot:					Reboots the CubeSat");
+								alertDialog.show();
+								commandList.add(0,command);
+							}
+
+							else {
+								enterCommand.clear();
+								throw new CommandError();
+							}
+
+							ArrayList<String> commandListDisplay = new ArrayList<>(commandList);
+							Collections.reverse(commandListDisplay);
+							commandListString = "";
+							for(int i =0; i<commandListDisplay.size();i++) {
+								commandListString = commandListString + commandListDisplay.get(i)+" \n";
+							}
+
+							commandLog.setText(commandListString);
+
+							System.out.println(commandList);	//Checking Array Contents are intact
+							System.out.println(commandListDisplay);
+							System.out.println(commandListString);
 						}
-						
-						else if(command.equals("changeOrientation") == true) {
-							enterCommand.clear();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							//SerialComm.Send(command);
-						}
-						
-						else if(command.equals("changeMagnetometers") == true) {
-							enterCommand.clear();
-							commandList.add(0,command);
-							
-							//Send command to SerialComm
-							//SerialComm.Send(command);
-						}
-						
-						else if(command.equals("help")== true) {
-							enterCommand.clear();
-							alertDialog.setAlertType(AlertType.CONFIRMATION);
-							alertDialog.setHeaderText("changeBatteryCells:		Toggle battery cells On/Off\n"
-									+ "changeMagnetometers: 	Toggle control magnetometers On/Off\n"
-									+ "changeNavigation:		Adjust current navigation settings (x,y,z)\n"
-									+ "changeOrientation:		Adjust current orientation settings (x,y,z)\n"
-									+ "changeSolarCells:		Toggle solar cells On/Off\n"
-									+ "changeSoftware:			Update software (file)\n"
-									+ "checkBatteryCells:		Gives current battery cell status\n"
-									+ "checkSolarCells:			Gives current solar cell status\n"
-									+ "checkSoftware:			Gives current version of software\n"
-									+ "resetNavigation:			Resets navigation parameters to initial values\n"
-									+ "reboot:					Reboots the CubeSat");
-							alertDialog.show();
-							commandList.add(0,command);
-						}
-						
-						else {
-							enterCommand.clear();
+						else if(enterCommand.getText().trim().isEmpty() == true){
 							throw new CommandError();
+
 						}
-						
-						ArrayList<String> commandListDisplay = new ArrayList<>(commandList);
-						Collections.reverse(commandListDisplay);
-						commandListString = "";
-						for(int i =0; i<commandListDisplay.size();i++) {
-							commandListString = commandListString + commandListDisplay.get(i)+" \n";
-						}
-						
-						commandLog.setText(commandListString);
-						
-						System.out.println(commandList);	//Checking Array Contents are intact
-						System.out.println(commandListDisplay);
-						System.out.println(commandListString);
-					}
-					else if(enterCommand.getText().trim().isEmpty() == true){
-						throw new CommandError();
-						
-					}
 
 
-				} catch (CommandError e1) {
+					}
+					//if user is not an admin
+					else{
+						alertDialog.setAlertType(AlertType.WARNING);
+						alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
+						alertDialog.show();
+					}
+					
+					}
+
+				
+
+				catch (CommandError e1) {
 					alertDialog.setAlertType(AlertType.WARNING);
 					alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
 					alertDialog.show();
@@ -279,6 +295,7 @@ public class command_line extends Application{
 		cl_pane.getChildren().add(enterCommand);
 		cl_pane.getChildren().add(commandLog);
 		cl_pane.getChildren().add(help);
+		cl_pane.getChildren().add(returnToMain);
 		cl_pane.setStyle("-fx-background-color: WHITE");
 
 		//Set GUI to constant resolution (changeable in the future)
@@ -295,13 +312,13 @@ public class command_line extends Application{
 		primaryStage.show();
 
 	}
-	
+
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
-	}
+}
 
-	
+
 class CommandError extends Exception{
 	public CommandError() {}
 }		

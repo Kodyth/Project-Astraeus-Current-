@@ -75,9 +75,17 @@ public class UserAccount{
 
 	}
 	
+	public boolean checkAdmin() {
+		return loggedinAdmin;
+	}
+	
 	public UserAccount(String username, String password) {	
 	}
 
+	public UserAccount() {
+		
+	}
+	
 	public static void createNewAccount(){
 		BufferedWriter write = null;
 		if(createAccountGUI.selected==false) {
