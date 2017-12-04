@@ -61,7 +61,6 @@ public class command_line extends Application{
 		Button returnToMain = new Button("Return to Main");
 		returnToMain.setMaxHeight(50);
 		returnToMain.setMaxWidth(100);
-<<<<<<< HEAD
 			
         /**************HELP***************/
         Button help = new Button("Help");
@@ -89,27 +88,10 @@ public class command_line extends Application{
         	}
         });
 		
-		
-=======
 		returnToMain.setLayoutX(740);
 		returnToMain.setLayoutY(620);
 
-		/**************HELP***************/
-		Button help = new Button("Help");
-		help.setMinHeight(50);
-		help.setMinWidth(100);
-		help.setOnAction(e -> {
-			//        	Tutorial t = new Tutorial();
-			try {
-				//        	t.start(primaryStage);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
 
-
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-		//Event Handling for command entered
 		UserAccount ua = new UserAccount();
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
@@ -323,15 +305,10 @@ public class command_line extends Application{
 
 		//
 		commandLog.setText(commandListString);
-
-<<<<<<< HEAD
-		cl_pane.getChildren().addAll(enterCommand,commandLog,help, backToMain);
-=======
 		cl_pane.getChildren().add(enterCommand);
 		cl_pane.getChildren().add(commandLog);
 		cl_pane.getChildren().add(help);
 		cl_pane.getChildren().add(returnToMain);
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
 		cl_pane.setStyle("-fx-background-color: WHITE");
 
 		//Set GUI to constant resolution (changeable in the future)

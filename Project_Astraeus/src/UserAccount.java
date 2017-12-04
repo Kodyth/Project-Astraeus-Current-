@@ -75,19 +75,15 @@ public class UserAccount{
 	public void changePassword() {
 
 	}
-<<<<<<< HEAD
 
-=======
 	
 	public boolean checkAdmin() {
 		return loggedinAdmin;
 	}
 	
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
 	public UserAccount(String username, String password) {	
 	}
 
-<<<<<<< HEAD
 	public static boolean checkUsername() throws IOException {
 		String user = username+"_";
 		try {
@@ -121,14 +117,11 @@ public class UserAccount{
 	}
 	
 
-
-=======
-	public UserAccount() {
+public UserAccount() {
 		
 	}
 	
->>>>>>> branch 'master' of https://github.com/Kodyth/Project-Astraeus-Current-.git
-	public static void createNewAccount(){
+public static void createNewAccount(){
 		BufferedWriter write = null;
 		if(createAccountGUI.selected==false) {
 			try{FileWriter fw = new FileWriter("UserAccountInfo.txt", true);

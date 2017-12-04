@@ -14,6 +14,6 @@ public class BarLengthForData {
 		
 		double rawlength = DataLog.allData.get(DataLog.allData.size()-1).get(locationOfinfo).getValue();
 		return((rawlength/barLength)*100);}
-		else return Math.random()*100;
+		else return 0;
 	}
 }
