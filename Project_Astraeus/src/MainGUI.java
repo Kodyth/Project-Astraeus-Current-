@@ -185,7 +185,7 @@ public class MainGUI extends Application{
 			             		Stage secondary=new Stage();
 			             	rdat.start(secondary, "LAT");
 			             	
-			             	//rdat.start(secondary, "LON");
+			             	rdat.start(secondary, "LON");
 			             	} catch (Exception e1) {
 			             	e1.printStackTrace();
 			             	}
