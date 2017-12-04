@@ -1,10 +1,14 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.DirectoryChooser;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -18,6 +22,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
+import java.time.*;
 
 /**
  * 
@@ -39,6 +44,8 @@ public class command_line extends Application{
 	private String commandListString;
 	private String  naviValues = "";
 	private String commandReturn;
+	private LocalDateTime ldt;
+	private String timeStamp;
 	private static Alert alertDialog = new Alert(null);
 	private TextInputDialog inputTextBox = new TextInputDialog();
 
@@ -75,11 +82,10 @@ public class command_line extends Application{
         	}
         });
         
-        Button backToMain = new Button("Back To Main Menu");
-        backToMain.setMinHeight(40);
-        backToMain.setMinWidth(100);
-        backToMain.setLayoutX(150);
-        backToMain.setOnAction(e -> {
+        returnToMain.setMinHeight(40);
+        returnToMain.setMinWidth(100);
+        returnToMain.setLayoutX(150);
+        returnToMain.setOnAction(e -> {
         	MainGUI mg = new MainGUI();
         	try {
         	mg.start(primaryStage);
@@ -97,7 +103,7 @@ public class command_line extends Application{
 			if(e.getCode() == KeyCode.ENTER){
 
 				try {
-					if(ua.checkAdmin()==true) {
+					//if(ua.checkAdmin()==true) {
 						if(enterCommand.getText().trim().isEmpty() == false){
 
 							command = enterCommand.getText();
@@ -115,19 +121,13 @@ public class command_line extends Application{
 							//	//SerialComm.Send(command);
 							//}
 
-							//else if(command.equals("changeSoftware") == true){
-							//	enterCommand.clear();
-							//	commandList.add(0,command);
-							//	
-							//	//Send command to SerialComm
-							//	//SerialComm.Send(command);
-							//}
-
 							else if(command.equals("checkBatteryCells") == true){
 								enterCommand.clear();
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("CubeSat Battery Cells status is green!");
 								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -139,6 +139,8 @@ public class command_line extends Application{
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("Retrieving Solar Cells Status...");
 								alertDialog.showAndWait();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -148,12 +150,16 @@ public class command_line extends Application{
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
 								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
 								commandList.add(0,response);
 
 							}
 
 							else if(command.equals("resetNavigation") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0, command);
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("Resetting CubeSat Navigation...");
@@ -166,11 +172,16 @@ public class command_line extends Application{
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
 								alertDialog.show();
+								
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
 								commandList.add(0,response);
 							}
 
 							else if(command.equals("reboot") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0, command);
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("CubeSat is now rebooting.");
@@ -183,11 +194,15 @@ public class command_line extends Application{
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
 								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + " " + response;
 								commandList.add(0,response);
 							}
 
 							else if(command.equals("changeBatteryCells") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -196,6 +211,8 @@ public class command_line extends Application{
 
 							else if(command.equals("changeSolarCells") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -219,6 +236,8 @@ public class command_line extends Application{
 									alertDialog.show();
 								}
 								command = command+" "+naviValues;
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 
@@ -228,6 +247,8 @@ public class command_line extends Application{
 
 							else if(command.equals("changeOrientation") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -236,6 +257,8 @@ public class command_line extends Application{
 
 							else if(command.equals("changeMagnetometers") == true) {
 								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + " " + command;
 								commandList.add(0,command);
 
 								//Send command to SerialComm
@@ -257,7 +280,22 @@ public class command_line extends Application{
 										+ "resetNavigation:			Resets navigation parameters to initial values\n"
 										+ "reboot:					Reboots the CubeSat");
 								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
+							}
+							
+							else if(command.equals("exportLog")==true) {
+								enterCommand.clear();
+								FileChooser fileChoose = new FileChooser();
+								fileChoose.getExtensionFilters().addAll(new ExtensionFilter("Text Files", ".txt"));
+								try(  PrintWriter out = new PrintWriter(fileChoose.showSaveDialog(primaryStage)  )  ){
+								    for(int i = 0; i < commandList.size();i++) {
+								    	out.println(commandList.get(i)+"\n");
+								    }
+								} catch (FileNotFoundException e1) {
+									e1.printStackTrace();
+								}
 							}
 
 							else {
@@ -273,24 +311,20 @@ public class command_line extends Application{
 							}
 
 							commandLog.setText(commandListString);
-
-							System.out.println(commandList);	//Checking Array Contents are intact
-							System.out.println(commandListDisplay);
-							System.out.println(commandListString);
+							
 						}
 						else if(enterCommand.getText().trim().isEmpty() == true){
 							throw new CommandError();
 
 						}
 
-
-					}
+					//}
 					//if user is not an admin
-					else{
-						alertDialog.setAlertType(AlertType.WARNING);
-						alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
-						alertDialog.show();
-					}
+					//else{
+					//	alertDialog.setAlertType(AlertType.WARNING);
+					//	alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
+					//	alertDialog.show();
+					//}
 					
 					}
 
