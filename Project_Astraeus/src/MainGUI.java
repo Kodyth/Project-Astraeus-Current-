@@ -215,7 +215,7 @@ public class MainGUI extends Application{
 		Button save = new Button("Save");
 		save.setOnAction(e -> {
 			try {
-				export_data.write(filename.getText());
+				export_data.write();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
