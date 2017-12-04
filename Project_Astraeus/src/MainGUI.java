@@ -273,8 +273,8 @@ public class MainGUI extends Application{
 		hb1.getChildren().addAll(filename, save);
 		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt, hb1);
 		mainLayout.getChildren().add(loc);
-		MenuBar menubar = MenuBarmaker();
-		BorderPane border = new BorderPane(mainlayout);
+		MenuBar menubar = MenuBarmaker(primaryStage);
+		BorderPane border = new BorderPane(mainLayout);
 		border.setTop(menubar);
 		Scene mainScene = new Scene(border);
 		primaryStage.setScene(mainScene);
@@ -292,7 +292,7 @@ public class MainGUI extends Application{
 		mainLayout.getChildren().add(open);
 	}
 	
-	MenuBar MenuBarmaker() {
+	MenuBar MenuBarmaker(Stage primaryStage) {
 		Menu astraeus = new Menu("Astreaus"); 
 		Menu file = new Menu("File");
 		Menu help = new Menu("Help");
@@ -333,7 +333,7 @@ public class MainGUI extends Application{
 		
 		astraeus.getItems().addAll(disconnect, logout);
 		file.getItems().addAll(open, save);
-		help.getItems().add(:helpb);
+		help.getItems().add(helpb);
 		MenuBar menubar = new MenuBar(astraeus, file, help);
 		return menubar;
 	}
