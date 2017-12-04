@@ -165,11 +165,40 @@ public class MainGUI extends Application{
 		Label volta = new Label();
 		volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
 		Rectangle temp = new Rectangle();
+		temp.setOnMouseClicked(e -> {
+			              	RDataGUI rdat = new RDataGUI();
+			              	try {
+			             		Stage secondary=new Stage();
+			              	rdat.start(secondary, "TMP");
+			              	} catch (Exception e1) {
+			             	e1.printStackTrace();
+			              	}
+			              });
 
 		temp.setHeight(50);
 		temp.setFill(Color.web("RED"));
 		Rectangle volt = new Rectangle();
 		Rectangle loc = new Rectangle();
+		map.setOnMouseClicked(e -> {
+			             	RDataGUI rdat = new RDataGUI();
+			             	try {
+			             		Stage secondary=new Stage();
+			             	rdat.start(secondary, "LAT");
+			             	Stage tertiary=new Stage();
+			             	rdat.start(tertiary, "LON");
+			             	} catch (Exception e1) {
+			             	e1.printStackTrace();
+			             	}
+			             });
+		volt.setOnMouseClicked(e -> {
+			              	RDataGUI rdat = new RDataGUI();
+			              	try {
+			              		Stage secondary=new Stage();
+			              	rdat.start(secondary, "VOL");
+			             	} catch (Exception e1) {
+			             	e1.printStackTrace();
+			              	}
+			              });
 		              loc.setFill(Color.web("BLUE"));
 		              loc.setHeight(10);
 		              loc.setWidth(10);
