@@ -196,7 +196,7 @@ public class MainGUI extends Application{
 		//creating text field and launch
 		TextField serial = new TextField();
 		serial.setPromptText("Serial Comm");
-		Button launch = new Button("launch");
+		Button launch = new Button("Launch");
 		launch.setOnAction(e -> {
 			try {
 				SerialComm.Run(serial.getText());
@@ -207,7 +207,22 @@ public class MainGUI extends Application{
 		});
 		HBox hb = new HBox();
 		hb.getChildren().addAll(serial, launch);
-		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt);
+		
+		//creating text field and save
+		TextField filename = new TextField();
+		serial.setPromptText("File name");
+		Button save = new Button("Save");
+		launch.setOnAction(e -> {
+			try {
+				export_data.write(filename.getText());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		HBox hb1 = new HBox();
+		hb1.getChildren().addAll(filename, save);
+		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt, hb1);
 		Scene mainScene = new Scene(mainLayout);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
