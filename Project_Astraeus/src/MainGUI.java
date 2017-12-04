@@ -40,7 +40,7 @@ public class MainGUI extends Application{
 
 	public static void main(String[] args) {
 		try {
-			//			SerialComm.Run();
+						SerialComm.Run();
 			System.out.println("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
