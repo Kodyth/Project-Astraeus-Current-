@@ -195,7 +195,7 @@ public class MainGUI extends Application{
 		
 		//creating text field and launch
 		TextField serial = new TextField();
-		//serial.setPromptText("");
+		serial.setPromptText("Serial Comm");
 		Button launch = new Button("launch");
 		launch.setOnAction(e -> {
 			try {
