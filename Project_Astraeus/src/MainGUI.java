@@ -192,7 +192,22 @@ public class MainGUI extends Application{
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
-		vRight.getChildren().addAll(hRight, tempe,temp,volta,volt);
+		
+		//creating text field and launch
+		TextField serial = new TextField();
+		//serial.setPromptText("");
+		Button launch = new Button("launch");
+		launch.setOnAction(e -> {
+			try {
+				SerialComm.Run(serial.getText());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		HBox hb = new HBox();
+		hb.getChildren().addAll(serial, launch);
+		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt);
 		Scene mainScene = new Scene(mainLayout);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
