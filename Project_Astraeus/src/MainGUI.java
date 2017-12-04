@@ -213,7 +213,7 @@ public class MainGUI extends Application{
 		TextField filename = new TextField();
 		filename.setPromptText("File name");
 		Button save = new Button("Save");
-		launch.setOnAction(e -> {
+		save.setOnAction(e -> {
 			try {
 				export_data.write(filename.getText());
 			} catch (Exception e1) {
