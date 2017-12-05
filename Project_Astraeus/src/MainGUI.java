@@ -27,7 +27,7 @@ import javafx.scene.control.MenuItem;
  * 
  * FRANCE IS BACON
  * HAIL BRITTANIA
- * USA USA USA
+ * 
  */
 public class MainGUI extends Application{
 	

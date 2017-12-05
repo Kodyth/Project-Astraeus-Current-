@@ -13,8 +13,9 @@ import java.util.ArrayList;
 
 public class Buffer {
 
-	//defines the number of different data values in the string
+	 //defines the number of different data values in the string
 	//****It is hard coded right now but in sprint 2 will be flexible****
+	static int OrderCount=0;
 	static int  numInputs=5;
 	public static String[] dataType=new String[numInputs];
 	
@@ -47,7 +48,8 @@ public class Buffer {
 		}
 		System.out.println();
 		for (j=0;j<5;j++) {
-			dataPacket.add(new Data(dataType[j],splitData[j]));
+			dataPacket.add(new Data(dataType[j],splitData[j], OrderCount));
+			OrderCount++;
 		}
 		//Adds the new data packet to the overall DataLog
 		DataLog.allData.add(dataPacket);

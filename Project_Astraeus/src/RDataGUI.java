@@ -35,13 +35,14 @@ public class RDataGUI extends Application{
 	
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) {
+		
 		primaryStage.setTitle("Astraeus");
         primaryStage.setWidth(850);
         primaryStage.setHeight(700);
 
         HBox vCenter = new HBox (40);
         vCenter.setMinWidth(282);
-
+        vCenter.setStyle("-fx-background-color: GRAY");
         if(DataLog.allData.size()<=0){}else{
         for(int i=0;i<DataLog.allData.get(0).size();i++){
         	tables.add(new TableView<Data>());

@@ -17,8 +17,9 @@ public class Data {
 	private int order;
 	
 	//Constructor for a Data Piece
-	Data(String input1, String input2){
+	Data(String input1, String input2, int inputorder){
 		type=input1;
+		order=inputorder;
 		try {
 			value=Double.parseDouble(input2);
 		}
