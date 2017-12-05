@@ -110,40 +110,53 @@ public class command_line extends Application{
 							{
 								throw new CommandError();
 							}
-							//else if(command.equals("checkSoftware") == true){
-							//	enterCommand.clear();
-							//	//commandList.add(0,"Current Software Status: Good");
-							//	commandList.add(1,command);							
-							//	
-							//	//Send command to SerialComm
-							//	//SerialComm.Send(command);
-							//}
+							else if(command.equals("checkSoftware") == true){
+								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Retrieving Software information");
+								alertDialog.show();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
+								command = timeStamp + ": " + command;
+								commandList.add(0,command);
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
+								commandList.add(0,response);
+							}
 
 							else if(command.equals("checkBatteryCells") == true){
 								enterCommand.clear();
-								alertDialog.setAlertType(AlertType.CONFIRMATION);
-								alertDialog.setHeaderText("CubeSat Battery Cells status is green!");
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Retrieving Battery Cells Status...");
 								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
 								command = timeStamp + ": " + command;
 								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
+								commandList.add(0,response);
 							}
 
 							else if(command.equals("checkSolarCells") == true) {
 								enterCommand.clear();
-								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setAlertType(AlertType.NONE);
 								alertDialog.setHeaderText("Retrieving Solar Cells Status...");
-								alertDialog.showAndWait();
+								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
 								command = timeStamp + ": " + command;
 								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command); 
-								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
 								response = SerialComm.getCommand();
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
@@ -153,24 +166,20 @@ public class command_line extends Application{
 								commandList.add(0,response);
 
 							}
-
 							else if(command.equals("resetNavigation") == true) {
 								enterCommand.clear();
-								timeStamp = LocalDateTime.now().toString();
-								command = timeStamp + ": " + command;
-								commandList.add(0, command);
-								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setAlertType(AlertType.NONE);
 								alertDialog.setHeaderText("Resetting CubeSat Navigation...");
-								alertDialog.showAndWait();
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
-								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
+								command = timeStamp + ": " + command;
+								commandList.add(0,command);
 								response = SerialComm.getCommand();
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
 								alertDialog.show();
-								
 								timeStamp = LocalDateTime.now().toString();
 								response = timeStamp + ": " + response;
 								commandList.add(0,response);
@@ -183,84 +192,85 @@ public class command_line extends Application{
 								commandList.add(0, command);
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("CubeSat is now rebooting.");
-								alertDialog.showAndWait();
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
+								command = timeStamp + ": " + command;
+								commandList.add(0,command);
+							}
 
-								//Send command to SerialComm
-								SerialComm.Send(command);
-								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();}
+							else if(command.equals("changeBatteryCells") == true) {
+								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Changing battery cells...");
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
+								command = timeStamp + ": " + command;
+								commandList.add(0,command);
 								response = SerialComm.getCommand();
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText(response);
 								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
-								response = timeStamp + " " + response;
+								response = timeStamp + ": " + response;
 								commandList.add(0,response);
-							}
-
-							else if(command.equals("changeBatteryCells") == true) {
-								enterCommand.clear();
-								timeStamp = LocalDateTime.now().toString();
-								command = timeStamp + ": " + command;
-								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
 							}
 
 							else if(command.equals("changeSolarCells") == true) {
 								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Changing solar cells...");
+								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
 								command = timeStamp + ": " + command;
 								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
-							}
-
-							else if(command.equals("changeNavigation") == true) {
-								enterCommand.clear();
-								inputTextBox.setHeaderText("Enter the new navigation values, seperated by commas then click ok.");
-								naviValues = inputTextBox.showAndWait().get();
-
-								System.out.println(naviValues);
-								if(naviValues.isEmpty()) {
-									alertDialog.setAlertType(AlertType.WARNING);
-									alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
-									alertDialog.show();
-								}
-								else {
-									alertDialog.setAlertType(AlertType.CONFIRMATION);
-									alertDialog.setHeaderText("User input accepted, sending to CubeSat");
-									alertDialog.show();
-								}
-								command = command+" "+naviValues;
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
-								command = timeStamp + ": " + command;
-								commandList.add(0,command);
-
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
+								response = timeStamp + ": " + response;
+								commandList.add(0,response);
 							}
 
 							else if(command.equals("changeOrientation") == true) {
 								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Changing orientation...");
+								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
 								command = timeStamp + ": " + command;
 								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
+								commandList.add(0,response);
 							}
 
 							else if(command.equals("changeMagnetometers") == true) {
 								enterCommand.clear();
+								alertDialog.setAlertType(AlertType.NONE);
+								alertDialog.setHeaderText("Changing magnetometers...");
+								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
-								command = timeStamp + " " + command;
+								SerialComm.Send(command); 	//Send command to SerialComm
+								try {Thread.sleep(2000);} catch (InterruptedException e1) {e1.printStackTrace();} //Wait for response
+								command = timeStamp + ": " + command;
 								commandList.add(0,command);
-
-								//Send command to SerialComm
-								SerialComm.Send(command);
+								response = SerialComm.getCommand();
+								alertDialog.setAlertType(AlertType.CONFIRMATION);
+								alertDialog.setHeaderText(response);
+								alertDialog.show();
+								timeStamp = LocalDateTime.now().toString();
+								response = timeStamp + ": " + response;
+								commandList.add(0,response);
 							}
 
 							else if(command.equals("help")== true) {

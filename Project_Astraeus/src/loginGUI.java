@@ -125,7 +125,7 @@ public class loginGUI extends Application {
 
 
 		root.setStyle("-fx-background-color: WHITE");
-		Scene scene = new Scene(root, 850, 700);
+		Scene scene = new Scene(root, 1280, 720);
 		primaryStage.setScene(scene);
 		loginstage = primaryStage;
 		primaryStage.show();	

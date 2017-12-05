@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -43,10 +46,6 @@ public class SerialComm implements SerialPortEventListener {
 	/** Default bits per second for COM port. */
 	private static final int DATA_RATE = 9600;
 	private static String commandString;
-
-	
-	
-	
 
 	public SerialComm(String input2) {
 		portNum=input2;
@@ -142,7 +141,7 @@ public class SerialComm implements SerialPortEventListener {
 				System.err.println(e.toString());
 			}
 		}
-		// Ignore all the other eventTypes, but you should consider the other ones.
+		
 	}
 
 	public static void Run(String input)  throws Exception {
@@ -178,6 +177,22 @@ public class SerialComm implements SerialPortEventListener {
 
 	public static String getCommand() {
 		return commandString;
+	}
+
+	public static void loadJarDll(String name) throws IOException {
+	    InputStream in = SerialComm.class.getResourceAsStream(name);
+	    byte[] buffer = new byte[1024];
+	    int read = -1;
+	    File temp = new File(new File(System.getProperty("java.io.tmpdir")), name);
+	    FileOutputStream fos = new FileOutputStream(temp);
+
+	    while((read = in.read(buffer)) != -1) {
+	        fos.write(buffer, 0, read);
+	    }
+	    fos.close();
+	    in.close();
+
+	    System.load(temp.getAbsolutePath());
 	}
 
 }

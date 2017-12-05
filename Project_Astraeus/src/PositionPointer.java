@@ -3,7 +3,6 @@ import java.util.*;
 
 import javax.xml.crypto.Data;
 
-//import sun.java2d.d3d.D3DSurfaceData;
 
 public class PositionPointer {
 public double PositionPointerX(){
@@ -17,9 +16,12 @@ public double PositionPointerX(){
 	}
 	
 	double r= DataLog.allData.get(DataLog.allData.size()-1).get(locationOfLat).getValue();
+	r = -r;
+	r = r + 90;
+	double pixelY = 2.22*r+80;
 	
-	double result = 10*Math.cos(r-90);
-return result;
+	
+return pixelY;
 }}
 public double PositionPointerY(){
 	if(DataLog.allData.size()<=0){return 0;}else{
@@ -31,9 +33,13 @@ public double PositionPointerY(){
 			locationOfLong=i;
 		}
 	}
-	
+	double pixelX = 415;
 	double s= DataLog.allData.get(DataLog.allData.size()-1).get(locationOfLong).getValue();
+	s = s +180;
+	pixelX = 2.08*s+80;
+	if(s == 360) {
+		pixelX = 85;
+	}
 	
-
-return (s+180);
+return pixelX;
 }}}

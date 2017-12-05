@@ -30,8 +30,9 @@ import javafx.scene.control.MenuItem;
  * USA USA USA
  */
 public class MainGUI extends Application{
-
-
+	
+	String comPort =""; 
+	UserAccount ua = new UserAccount();
 	public static void main(String[] args) {
 		try {
 		} catch (Exception e) {
@@ -43,7 +44,7 @@ public class MainGUI extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		//Setting parameters for the Stage
-
+		
 		primaryStage.setTitle("Astraeus");
 		primaryStage.setWidth(1280);
 		primaryStage.setHeight(720);
@@ -117,8 +118,8 @@ public class MainGUI extends Application{
 		//creating bars for temp and voltage
 		BarLengthForData bar1 = new BarLengthForData();
 		BarLengthForData bar2 = new BarLengthForData();
-		BarLengthForData lat = new BarLengthForData();
-		BarLengthForData lon = new BarLengthForData();
+		PositionPointer lat = new PositionPointer();
+		PositionPointer lon = new PositionPointer();
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
@@ -177,8 +178,8 @@ public class MainGUI extends Application{
 						public void run() {
 							double temperature = bar1.DataToBarLength("TMP",1);
 							double voltage = bar2.DataToBarLength("VOL",1);
-							double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+272;
-							double locX= (lon.DataToBarLength("LON", 100)*.9)+80;
+							double locY= (lat.PositionPointerX()-5);
+							double locX= (lon.PositionPointerY());
 							loc.setX(locX);
 							loc.setY(locY);
 							//temp.setWidth(50);
@@ -219,6 +220,7 @@ public class MainGUI extends Application{
 			try {
 				new COMPORT(serial.getText());
 				SerialComm.Run(serial.getText());
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -251,13 +253,16 @@ public class MainGUI extends Application{
 		MenuItem helpb = new MenuItem("Help");
 		MenuItem helpt = new MenuItem("Tutorial");
 
-		//disconnect.setOnAction(e ->);
-
+//		disconnect.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override public void handle(ActionEvent e) {
+//				
+//			}
+//		});
 		logout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				loginGUI gui = new loginGUI();
 				gui.start(primaryStage);
-				UserAccount ua = new UserAccount();
+				
 				ua.logout();
 			}
 		});
