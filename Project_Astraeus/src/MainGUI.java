@@ -225,7 +225,7 @@ public class MainGUI extends Application{
 							curre.setLayoutY(370);
 							curr.setLayoutX(930);
 							curr.setLayoutY(410);
-							
+							//tesy
 						}				
 					});
 
