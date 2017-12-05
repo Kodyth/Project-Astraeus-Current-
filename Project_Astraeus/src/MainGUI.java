@@ -7,14 +7,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,12 +16,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-
-
 
 /**
  * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. Contains buttons that lead to every other section of the program. 
@@ -39,17 +30,12 @@ import javafx.scene.control.MenuItem;
  * USA USA USA
  */
 public class MainGUI extends Application{
-	private command_line command;
-	private boolean trigger;
 
 
 	public static void main(String[] args) {
 		try {
-						
-			System.out.println("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println("Test2");
 		}
 		launch(args);
 	}
@@ -59,37 +45,36 @@ public class MainGUI extends Application{
 		//Setting parameters for the Stage
 
 		primaryStage.setTitle("Astraeus");
-		primaryStage.setWidth(850);
-		primaryStage.setHeight(700);
-
-
-		//Creating Horizontal Box and Vertical Boxes that make up the main scene
-		HBox mainLayout2 = new HBox();
-            Pane mainLayout=new Pane();
-		VBox vLeft = new VBox(30);
-		vLeft.setMinWidth(284);
-		vLeft.setPadding(new Insets(15, 0, 15, 0));
-		VBox vRight = new VBox(10);
-		vRight.setMinWidth(284);
-		VBox vCenter = new VBox (40);
-		vCenter.setMinWidth(282);
-		HBox hRight = new HBox(10);
-		mainLayout2.getChildren().addAll(vLeft, vCenter, vRight);
-		             mainLayout.getChildren().add(mainLayout2);
+		primaryStage.setWidth(1280);
+		primaryStage.setHeight(720);
+		Image logo = new Image("Resources/Astraeus Logo.png");
+		primaryStage.getIcons().add(logo);
+		primaryStage.setResizable(false);
+		Pane mainLayout=new Pane();
 		mainLayout.setStyle("-fx-background-color: WHITE");
 
 		//Creating the image for use in the GUI
+		Image background = new Image("Resources/Astraeus MainGUI.jpg");
+		ImageView backgroundv = new ImageView(background);
 		Image cube = new Image("Resources/Cubesat.png");
 		ImageView cubev = new ImageView(cube);
 		cubev.setFitWidth(274);
 		cubev.setFitHeight(354);
+		//Set up background
+		backgroundv.setLayoutX(0);
+		backgroundv.setLayoutY(0);
+		backgroundv.fitWidthProperty().bind(mainLayout.widthProperty());
+		backgroundv.fitHeightProperty().bind(mainLayout.heightProperty());
+		mainLayout.getChildren().add(backgroundv);
+		//Set up world map
+		Image Map = new Image("Resources/map.bmp");
+		ImageView map = new ImageView(Map);
+		map.setLayoutX(80);
+		map.setLayoutY(80);
+		map.setFitWidth(750);
+		map.setFitHeight(400);
 
-		// This is a temporary stand-in for the actual map function
-		Image dummyMap = new Image("Resources/dummymap.png");
-		ImageView map = new ImageView(dummyMap);
-		map.setFitWidth(274);
-		map.setFitHeight(285);
-		vLeft.getChildren().addAll(cubev, map);
+		mainLayout.getChildren().add(map);
 
 		//Creating the main label for the GUI
 		BorderPane root = new BorderPane();
@@ -100,7 +85,7 @@ public class MainGUI extends Application{
 		root.setCenter(astraeus);
 
 		//Creating Buttons for main GUI
-		Button commandb = new Button("Control Cubesat/ View Commands");
+		Button commandb = new Button("Command Line (Admin Use Only)");
 		commandb.setMaxWidth(Double.MAX_VALUE);
 		commandb.setMinHeight(50);
 		commandb.setOnAction(e -> {
@@ -111,10 +96,8 @@ public class MainGUI extends Application{
 				e1.printStackTrace();
 			}
 		});
-
-		Button rtData= new Button("View Real-Time Data");
-		rtData.setMaxWidth(Double.MAX_VALUE);
-		rtData.setMinHeight(50);
+		commandb.setLayoutX(200);
+		commandb.setLayoutY(520);
 		Button rData = new Button("View Recorded Data");
 		rData.setMaxWidth(Double.MAX_VALUE);
 		rData.setMinHeight(50);
@@ -122,95 +105,68 @@ public class MainGUI extends Application{
 			RDataGUI rdat = new RDataGUI();
 			try {
 				Stage secondary=new Stage();
-				             	rdat.start(secondary);
+				rdat.start(secondary);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		rData.setLayoutX(600);
+		rData.setLayoutY(520);
+		mainLayout.getChildren().addAll(rData,commandb);
+		
+		//creating bars for temp and voltage
+		BarLengthForData bar1 = new BarLengthForData();
+		BarLengthForData bar2 = new BarLengthForData();
+		BarLengthForData lat = new BarLengthForData();
+		BarLengthForData lon = new BarLengthForData();
+		Label tempe = new Label();
+		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
+		Label volta = new Label();
+		volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
+		Rectangle temp = new Rectangle();
+		temp.setOnMouseClicked(e -> {
+			RDataGUI rdat = new RDataGUI();
+			try {
+				Stage secondary=new Stage();
+				rdat.start(secondary, "TMP");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		});
 
-		/**************LOGOUT*****************/
-		Button logout = new Button();
-		Image logoutImage = new Image(getClass().getResourceAsStream("Resources/logout_button.png"));
-		logout.setGraphic(new ImageView(logoutImage));
-		logout.setStyle("-fx-background-color: WHITE");
-		logout.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				loginGUI gui = new loginGUI();
-				gui.start(primaryStage);
-				UserAccount ua = null;
-				ua.logout();
-			}
-		});
-
-		/**************TUTORIAL***************/  
-		Button tutorial = new Button("Tutorial");
-		tutorial.setMaxWidth(Double.MAX_VALUE);
-		tutorial.setMinHeight(50);
-
-		tutorial.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				Tutorial t = new Tutorial();
-				t.start(primaryStage);
-			}
-		});
-
-
-		hRight.getChildren().addAll(logout);
-
-		vCenter.getChildren().addAll(root, commandb, rData, tutorial);
-
-		//creating bars for temp and voltage. arbitrary values inuted temporarily
-		BarLengthForData bar1 = new BarLengthForData();
-		BarLengthForData bar2 = new BarLengthForData();
-		BarLengthForData lat = new BarLengthForData();
-		             BarLengthForData lon = new BarLengthForData();
-		Label tempe = new Label();
-		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
-		Label volta = new Label();
-		volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 century-gothic");
-		Rectangle temp = new Rectangle();
-		temp.setOnMouseClicked(e -> {
-			              	RDataGUI rdat = new RDataGUI();
-			              	try {
-			             		Stage secondary=new Stage();
-			              	rdat.start(secondary, "TMP");
-			              	} catch (Exception e1) {
-			             	e1.printStackTrace();
-			              	}
-			              });
-
 		temp.setHeight(50);
-		temp.setFill(Color.web("RED"));
+		temp.setFill(Color.web("LIGHTGREEN"));
 		Rectangle volt = new Rectangle();
 		Rectangle loc = new Rectangle();
 		map.setOnMouseClicked(e -> {
-			             	RDataGUI rdat = new RDataGUI();
-			             	try {
-			             		Stage secondary=new Stage();
-			             	rdat.start(secondary, "LAT");
-			             	
-			             	rdat.start(secondary, "LON");
-			             	} catch (Exception e1) {
-			             	e1.printStackTrace();
-			             	}
-			             });
+			RDataGUI rdat = new RDataGUI();
+			try {
+				Stage secondary=new Stage();
+				rdat.start(secondary, "LAT");
+
+				rdat.start(secondary, "LON");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 		volt.setOnMouseClicked(e -> {
-			              	RDataGUI rdat = new RDataGUI();
-			              	try {
-			              		Stage secondary=new Stage();
-			              	rdat.start(secondary, "VOL");
-			             	} catch (Exception e1) {
-			             	e1.printStackTrace();
-			              	}
-			              });
-		              loc.setFill(Color.web("BLUE"));
-		              loc.setHeight(10);
-		              loc.setWidth(10);
+			RDataGUI rdat = new RDataGUI();
+			try {
+				Stage secondary=new Stage();
+				rdat.start(secondary, "VOL");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		loc.setFill(Color.web("LIGHTGREEN"));
+		loc.setHeight(10);
+		loc.setWidth(10);
 
 		volt.setHeight(50);
-		volt.setFill(Color.web("RED"));
+		volt.setFill(Color.web("LIGHTGREEN"));
+
 		@SuppressWarnings("rawtypes")//test
-		 			Task task = new Task<Void>() {
+		Task task = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
 
@@ -221,14 +177,27 @@ public class MainGUI extends Application{
 						public void run() {
 							double temperature = bar1.DataToBarLength("TMP",1);
 							double voltage = bar2.DataToBarLength("VOL",1);
-							double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+600;
-							             	          double locX= (lon.DataToBarLength("LON", 100)*.9);
-							             	          loc.setX(locX);
-							             	          loc.setY(locY);
+							double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+272;
+							double locX= (lon.DataToBarLength("LON", 100)*.9)+80;
+							loc.setX(locX);
+							loc.setY(locY);
+							//temp.setWidth(50);
+							//volt.setWidth(50);
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
 							volta.setText("Voltage: " + (voltage/100) + "\n");
 							tempe.setText("Temperature: " + (temperature/100) + "\n");
+							tempe.setTextFill(Color.SLATEGRAY);
+							tempe.setLayoutX(930);
+							tempe.setLayoutY(110);
+							temp.setLayoutX(930);
+							temp.setLayoutY(160);
+							volta.setTextFill(Color.SLATEGRAY);
+							volta.setLayoutX(930);
+							volta.setLayoutY(240);
+							volt.setLayoutX(930);
+							volt.setLayoutY(285);
+							
 						}				
 					});
 
@@ -240,6 +209,7 @@ public class MainGUI extends Application{
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
+		mainLayout.getChildren().addAll(volt,temp,tempe,volta,loc);
 		
 		//creating text field and launch
 		TextField serial = new TextField();
@@ -254,62 +224,40 @@ public class MainGUI extends Application{
 				e1.printStackTrace();
 			}
 		});
-		HBox hb = new HBox();
-		hb.getChildren().addAll(serial, launch);
+		serial.setLayoutX(920);
+		serial.setLayoutY(520);
+		launch.setLayoutX(1100);
+		launch.setLayoutY(520);
+		mainLayout.getChildren().addAll(launch,serial);
+
 		
-		//creating text field and save
-		TextField filename = new TextField();
-		filename.setPromptText("File name");
-		Button save = new Button("Save");
-		save.setOnAction(e -> {
-			try {
-				export_data.write();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		HBox hb1 = new HBox();
-		hb1.getChildren().addAll(filename, save);
-		vRight.getChildren().addAll(hb, hRight, tempe,temp,volta,volt, hb1);
-		mainLayout.getChildren().add(loc);
 		MenuBar menubar = MenuBarmaker(primaryStage);
 		BorderPane border = new BorderPane(mainLayout);
 		border.setTop(menubar);
 		Scene mainScene = new Scene(border);
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
-
-		Button open = new Button("open");
-		open.setOnAction(e -> {
-			try {
-				import_data.read();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-		mainLayout.getChildren().add(open);
 	}
-	
+
 	MenuBar MenuBarmaker(Stage primaryStage) {
 		Menu astraeus = new Menu("Astreaus"); 
 		Menu file = new Menu("File");
 		Menu help = new Menu("Help");
-		
+
 		MenuItem disconnect = new MenuItem("Disconnect");
-		MenuItem logout = new MenuItem("logout");
+		MenuItem logout = new MenuItem("Logout");
 		MenuItem open = new MenuItem("Open");
 		MenuItem save = new MenuItem("Save");
 		MenuItem helpb = new MenuItem("Help");
-		
+		MenuItem helpt = new MenuItem("Tutorial");
+
 		//disconnect.setOnAction(e ->);
-		
+
 		logout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				loginGUI gui = new loginGUI();
 				gui.start(primaryStage);
-				UserAccount ua = null;
+				UserAccount ua = new UserAccount();
 				ua.logout();
 			}
 		});
@@ -331,9 +279,16 @@ public class MainGUI extends Application{
 		});
 		//helpb.setOnAction(e ->);
 		
+		helpt.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				Tutorial t = new Tutorial();
+				t.start(primaryStage);
+			}
+		});
+		
 		astraeus.getItems().addAll(disconnect, logout);
 		file.getItems().addAll(open, save);
-		help.getItems().add(helpb);
+		help.getItems().addAll(helpb,helpt);
 		MenuBar menubar = new MenuBar(astraeus, file, help);
 		return menubar;
 	}

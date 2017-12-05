@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,8 +19,8 @@ public class Tutorial extends Application{
 	@Override
 	public void start(Stage primaryStage) {		
 		primaryStage.setTitle("Astraeus");
-        primaryStage.setWidth(850);
-        primaryStage.setHeight(700);
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(720);
         
 		HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(15, 10, 15, 10));
