@@ -118,13 +118,17 @@ public class MainGUI extends Application{
 		//creating bars for temp and voltage
 		BarLengthForData bar1 = new BarLengthForData();
 		BarLengthForData bar2 = new BarLengthForData();
+		BarLengthForData bar3 = new BarLengthForData();
 		PositionPointer lat = new PositionPointer();
 		PositionPointer lon = new PositionPointer();
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
 		volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
+		Label curry = new Label();
+		curry.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Rectangle temp = new Rectangle();
+		Rectangle curr = new Rectangle();
 		temp.setOnMouseClicked(e -> {
 			RDataGUI rdat = new RDataGUI();
 			try {
@@ -134,7 +138,17 @@ public class MainGUI extends Application{
 				e1.printStackTrace();
 			}
 		});
-
+		curry.setOnMouseClicked(e -> {
+			RDataGUI rdat = new RDataGUI();
+			try {
+				Stage secondary=new Stage();
+				rdat.start(secondary, "CUR");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		curr.setHeight(50);
+		curr.setFill(Color.web("LIGHTGREEN"));
 		temp.setHeight(50);
 		temp.setFill(Color.web("LIGHTGREEN"));
 		Rectangle volt = new Rectangle();
@@ -178,6 +192,7 @@ public class MainGUI extends Application{
 						public void run() {
 							double temperature = bar1.DataToBarLength("TMP",1);
 							double voltage = bar2.DataToBarLength("VOL",1);
+							double current= bar3.DataToBarLength("CUR",1);
 							double locY= (lat.PositionPointerX()-5);
 							double locX= (lon.PositionPointerY());
 							loc.setX(locX);
@@ -186,8 +201,10 @@ public class MainGUI extends Application{
 							//volt.setWidth(50);
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
+							curr.setWidth(current/5);
 							volta.setText("Voltage: " + (voltage/100) + "\n");
 							tempe.setText("Temperature: " + (temperature/100) + "\n");
+							curry.setText("Current: " + (current/100) + "\n");
 							tempe.setTextFill(Color.SLATEGRAY);
 							tempe.setLayoutX(930);
 							tempe.setLayoutY(110);
@@ -198,6 +215,11 @@ public class MainGUI extends Application{
 							volta.setLayoutY(240);
 							volt.setLayoutX(930);
 							volt.setLayoutY(285);
+							curry.setTextFill(Color.SLATEGRAY);
+							curry.setLayoutX(930);
+							curry.setLayoutY(370);
+							curr.setLayoutX(930);
+							curr.setLayoutY(410);
 							
 						}				
 					});
@@ -210,7 +232,7 @@ public class MainGUI extends Application{
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
-		mainLayout.getChildren().addAll(volt,temp,tempe,volta,loc);
+		mainLayout.getChildren().addAll(volt,temp,tempe,volta,loc,curry,curr);
 		
 		//creating text field and launch
 		TextField serial = new TextField();
