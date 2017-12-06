@@ -206,7 +206,7 @@ public class MainGUI extends Application{
 							//volt.setWidth(50);
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
-							curr.setWidth(voltage/5);
+							curr.setWidth(current/5);
 							volta.setText("Voltage: " + (voltage/100) + "  [V]\n");
 							tempe.setText("Temperature: " + (temperature/100) + "  [K]\n");
 							curre.setText("Current: " + (current/100) + "  [A]\n");
