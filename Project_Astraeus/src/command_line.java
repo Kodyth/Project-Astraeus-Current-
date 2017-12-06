@@ -590,11 +590,8 @@ public class command_line extends Application{
 		}
 
 		commandLog.setText(commandListString);
-
-
 	}
-
-
+	
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
