@@ -168,8 +168,7 @@ public class loginGUI extends Application {
 
 
 		root.setStyle("-fx-background-color: black");
-		
-		/////////////////////////////////////////
+
 		Scene scene = new Scene(mainPane, 1280, 720);
 
 		primaryStage.setScene(scene);

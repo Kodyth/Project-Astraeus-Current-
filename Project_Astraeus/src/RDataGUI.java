@@ -16,7 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 /**
  * RDataGUI.java
@@ -27,10 +27,6 @@ import javafx.stage.Stage;
  * Description: This class builds the tables and the recorded data tabs.
  */
  
-
-
- 
-        
 public class RDataGUI extends Application{
 
 
@@ -42,9 +38,12 @@ public class RDataGUI extends Application{
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) {//this method shows all the tables possible
 		
-		primaryStage.setTitle("Astraeus");
-        primaryStage.setWidth(850);
-        primaryStage.setHeight(700);
+		primaryStage.setTitle("Astraeus: Table of Data Viewer");
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(720);
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("Resources/Astraeus Logo.png"));
+        
 
         HBox vCenter = new HBox (40);
         vCenter.setMinWidth(282);
@@ -64,7 +63,7 @@ public class RDataGUI extends Application{
                     new PropertyValueFactory<Data, String>("value"));//the value column of each datatype
             
             
-            TableColumn<Data, String> locationCol = new TableColumn<Data, String>("Recency");//the recency column of each data type
+            TableColumn<Data, String> locationCol = new TableColumn<Data, String>("TIME");//the TIME column of each data type
             locationCol.setMinWidth(100);
             locationCol.setCellValueFactory(new PropertyValueFactory<Data,String>("order"));
             
@@ -97,7 +96,7 @@ public class RDataGUI extends Application{
           	          }}
           	        }				
           	      );
-          	      //recommitting
+          	   
           	      Thread.sleep(1000);
           	    }
           	  }
@@ -120,9 +119,10 @@ public class RDataGUI extends Application{
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage,String Datatype) {//this method is used for a single table
 		primaryStage.setTitle("Astraeus");
-        primaryStage.setWidth(850);
-        primaryStage.setHeight(700);
-
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(720);
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("Resources/Astraeus Logo.png"));
         HBox vCenter = new HBox (40);
         vCenter.setMinWidth(282);
         vCenter.setStyle("-fx-background-color: GRAY");//sets the background
@@ -147,7 +147,7 @@ public class RDataGUI extends Application{
             valuecol.setCellValueFactory(
                     new PropertyValueFactory<Data, String>("value"));
             
-            TableColumn<Data, String> locationCol = new TableColumn<Data, String>("Recency");
+            TableColumn<Data, String> locationCol = new TableColumn<Data, String>("TIME");
             locationCol.setMinWidth(100);
             locationCol.setCellValueFactory(new PropertyValueFactory<Data,String>("order"));
             
@@ -180,7 +180,6 @@ public class RDataGUI extends Application{
           	          }}
           	        }				
           	      );
-          	      //recommitting
           	      Thread.sleep(1000);
           	    }
           	  }

@@ -47,7 +47,6 @@ public class import_data {
 
             // Read file line by line and print on the console
            
-
             line=bufferReader.readLine();
             String[] datatypes=line.split(",");
             while ((line = bufferReader.readLine()) != null)   {

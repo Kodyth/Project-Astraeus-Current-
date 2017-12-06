@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * Data.java
  * Project Astraeus
@@ -14,12 +17,12 @@ public class Data {
 	//Attributes
 	private String type;
 	private double value;
-	private int order;
+	private String order;
 	
 	//Constructor for a Data Piece
 	Data(String input1, String input2, int inputorder){
 		type=input1;
-		order=inputorder;
+		order=LocalTime.now().toString();;
 		try {
 			value=Double.parseDouble(input2);
 		}
@@ -32,18 +35,11 @@ public class Data {
 	public String getType() {return type;}
 	public double getValue() {return value;}
 	public String getValueS() {return Double.toString(value);}
-	public int getOrder() {return order;}
+	public String getOrder() {return order;}
 	
 	//Setters
 	public void setType(String input) {type=input;}
 	public void setValue(double input) {value=input;}
-	public void setOrder(int input) {order=input;}
-	
-	
-	
-	
-	
-	
-	
+	public void setOrder(String input) {order=input;}	
 	
 }

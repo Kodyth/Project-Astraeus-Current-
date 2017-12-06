@@ -41,7 +41,6 @@ public class export_data{
                 }
                 writer.write(line+"\n");
                 line="";
-                //writes a line of code for every player in the player list
                 for (int i=0;i<DataLog.allData.size();i++)
                 {
                 	for(int j=0;j<DataLog.allData.get(i).size();j++) {
@@ -61,8 +60,6 @@ public class export_data{
                 writer.close();
         	}
         	
-            
-            
         } catch (IOException e) {
             e.printStackTrace();
         }

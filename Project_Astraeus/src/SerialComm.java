@@ -1,10 +1,14 @@
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -53,10 +57,7 @@ public class SerialComm implements SerialPortEventListener {
 	}
 
 	public void initialize() {
-		// the next line is for Raspberry Pi and 
-		// gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
 		System.setProperty("gnu.io.rxtx.SerialPorts", portNum);
-
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -183,21 +184,6 @@ public class SerialComm implements SerialPortEventListener {
 		return commandString;
 	}
 
-	public static void loadJarDll(String name) throws IOException {
-	    InputStream in = SerialComm.class.getResourceAsStream(name);
-	    byte[] buffer = new byte[1024];
-	    int read = -1;
-	    File temp = new File(new File(System.getProperty("java.io.tmpdir")), name);
-	    FileOutputStream fos = new FileOutputStream(temp);
-
-	    while((read = in.read(buffer)) != -1) {
-	        fos.write(buffer, 0, read);
-	    }
-	    fos.close();
-	    in.close();
-
-	    System.load(temp.getAbsolutePath());
-	}
 	
 
 }

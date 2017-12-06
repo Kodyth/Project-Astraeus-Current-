@@ -1,16 +1,13 @@
-
-
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import java.time.*;
 
 /**
  * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. Contains buttons that lead to every other section of the program. 
@@ -62,12 +60,19 @@ public class MainGUI extends Application{
 		ImageView cubev = new ImageView(cube);
 		cubev.setFitWidth(274);
 		cubev.setFitHeight(354);
+		Text clock = new Text();
+		clock.setLayoutX(950);
+		clock.setLayoutY(600);
+		clock.setText(LocalTime.now().toString());
+		clock.setStyle("-fx-font: 46 gills-sans-MT; -fx-font-weight: bold");
+		
 		//Set up background
 		backgroundv.setLayoutX(0);
 		backgroundv.setLayoutY(0);
 		backgroundv.fitWidthProperty().bind(mainLayout.widthProperty());
 		backgroundv.fitHeightProperty().bind(mainLayout.heightProperty());
 		mainLayout.getChildren().add(backgroundv);
+		
 		//Set up world map
 		Image Map = new Image("Resources/map.bmp");
 		ImageView map = new ImageView(Map);
@@ -75,16 +80,8 @@ public class MainGUI extends Application{
 		map.setLayoutY(80);
 		map.setFitWidth(750);
 		map.setFitHeight(400);
-
+		mainLayout.getChildren().add(clock);
 		mainLayout.getChildren().add(map);
-
-		//Creating the main label for the GUI
-		BorderPane root = new BorderPane();
-		Label astraeus = new Label("Astraeus \n\n\n\n");
-		astraeus.setStyle("-fx-text-fill: BLACK; -fx-font: 50 century-gothic; -fx-font-weight: bold");
-		astraeus.setPadding(new Insets(0, 0, 10, 0));
-		root.setMaxWidth(Double.MAX_VALUE);
-		root.setCenter(astraeus);
 
 		//Creating Buttons for main GUI
 		Button commandb = new Button("Command Line (Admin Use Only)");
@@ -107,7 +104,10 @@ public class MainGUI extends Application{
 			RDataGUI rdat = new RDataGUI();
 			try {
 				Stage secondary=new Stage();
+				secondary.setWidth(1280);
+				secondary.setHeight(720);
 				rdat.start(secondary);
+				
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}//section which starts the recorded data tab when the button is clicked
@@ -117,11 +117,12 @@ public class MainGUI extends Application{
 		mainLayout.getChildren().addAll(rData,commandb);
 		
 		//creating bars for temp and voltage
+		PositionPointer lat = new PositionPointer();//latitude
+		PositionPointer lon = new PositionPointer();//longitude
 		BarLengthForData bar1 = new BarLengthForData();//temperature 
 		BarLengthForData bar2 = new BarLengthForData();//voltage
 		BarLengthForData bar3 = new BarLengthForData();//current
-		PositionPointer lat = new PositionPointer();//latitude
-		PositionPointer lon = new PositionPointer();//longitude
+	
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
@@ -150,12 +151,12 @@ public class MainGUI extends Application{
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});//section which builds the constantly-updating temperature bar
+		});//section which builds the constantly-updating current bar
 
 		curr.setHeight(50);
 		curr.setFill(Color.web("LIGHTGREEN"));
 		Rectangle volt = new Rectangle();
-		//Rectangle loc = new Rectangle();
+	
 		Image sat = new Image("Resources/loc.png");
 		ImageView loc = new ImageView();
         	loc.setImage(sat);
@@ -179,14 +180,12 @@ public class MainGUI extends Application{
 				e1.printStackTrace();//section which builds the constantly-updating voltage bar
 			}
 		});
-		if(loc.getY() <= -180) {
-			loc.setVisible(false);
-		}//hides the satellite when nothing is happening
+		
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("LIGHTGREEN"));
 
-		@SuppressWarnings("rawtypes")//test
+		@SuppressWarnings("rawtypes")
 		Task task = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
@@ -203,6 +202,13 @@ public class MainGUI extends Application{
 							double locX= (lon.PositionPointerY());//fetches the values for the longitude of the satellite
 							loc.setX(locX);
 							loc.setY(locY);
+							if(loc.getY() < 79) {
+								loc.setVisible(false);
+							}//hides the satellite when nothing is happening
+							else
+							{
+							loc.setVisible(true);	
+							}
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
 							curr.setWidth(current/5);
@@ -224,7 +230,7 @@ public class MainGUI extends Application{
 							curre.setLayoutY(360);
 							curr.setLayoutX(930);
 							curr.setLayoutY(410);
-							//tesy
+							clock.setText(LocalTime.now().toString());
 						}				
 					});
 
@@ -249,7 +255,7 @@ public class MainGUI extends Application{
 				SerialComm.Run(serial.getText());
 				
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 		});
@@ -297,7 +303,6 @@ public class MainGUI extends Application{
 			try {
 				import_data.read();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -305,7 +310,6 @@ public class MainGUI extends Application{
 			try {
 				export_data.write();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -328,6 +332,5 @@ public class MainGUI extends Application{
 
 }
 
-//hi
 
 

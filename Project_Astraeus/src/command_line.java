@@ -28,6 +28,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
 import java.time.*;
 
@@ -278,15 +279,15 @@ public class command_line extends Application{
 								alertDialog.setAlertType(AlertType.CONFIRMATION);
 								alertDialog.setHeaderText("changeBatteryCells:		Toggle battery cells On/Off\n"
 										+ "changeMagnetometers: 	Toggle control magnetometers On/Off\n"
-										+ "changeNavigation:		Adjust current navigation settings (x,y,z)\n"
 										+ "changeOrientation:		Adjust current orientation settings (x,y,z)\n"
 										+ "changeSolarCells:		Toggle solar cells On/Off\n"
-										+ "changeSoftware:			Update software (file)\n"
 										+ "checkBatteryCells:		Gives current battery cell status\n"
 										+ "checkSolarCells:			Gives current solar cell status\n"
 										+ "checkSoftware:			Gives current version of software\n"
+										+ "exportLog:				Prompts the user to save the command log\n"
 										+ "resetNavigation:			Resets navigation parameters to initial values\n"
-										+ "reboot:					Reboots the CubeSat");
+										+ "reboot:					Reboots the CubeSat\n"
+										+ "promoteUser:				Allows an admin to promote a user to admin\n");
 								alertDialog.show();
 								timeStamp = LocalDateTime.now().toString();
 								command = timeStamp + ": " + command;
@@ -346,15 +347,25 @@ public class command_line extends Application{
 		//Set On-Screen Command Log
 		commandLog.setText(commandListString);
 		
+		Text clock = new Text();
+		clock.setLayoutX(950);
+		clock.setLayoutY(600);
+		clock.setText(LocalTime.now().toString());
+		clock.setStyle("-fx-font: 46 gills-sans-MT; -fx-font-weight: bold");
+		
 		//creating bars for temp and voltage
-		BarLengthForData bar1 = new BarLengthForData();
-		BarLengthForData bar2 = new BarLengthForData();
-		BarLengthForData lat = new BarLengthForData();
-		BarLengthForData lon = new BarLengthForData();
+		PositionPointer lat = new PositionPointer();//latitude
+		PositionPointer lon = new PositionPointer();//longitude
+		BarLengthForData bar1 = new BarLengthForData();//temperature 
+		BarLengthForData bar2 = new BarLengthForData();//voltage
+		BarLengthForData bar3 = new BarLengthForData();//current
+	
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
 		volta.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
+		Label curre = new Label();
+		curre.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Rectangle temp = new Rectangle();
 		temp.setOnMouseClicked(e -> {
 			RDataGUI rdat = new RDataGUI();
@@ -364,24 +375,33 @@ public class command_line extends Application{
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});
+		});//section which builds the constantly-updating temperature bar
 
 		temp.setHeight(50);
 		temp.setFill(Color.web("LIGHTGREEN"));
+		Rectangle curr = new Rectangle();
+		curr.setOnMouseClicked(e -> {
+			RDataGUI rdat = new RDataGUI();
+			try {
+				Stage secondary=new Stage();
+				rdat.start(secondary, "CUR");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});//section which builds the constantly-updating temperature bar
+
+		curr.setHeight(50);
+		curr.setFill(Color.web("LIGHTGREEN"));
 		Rectangle volt = new Rectangle();
-		Rectangle loc = new Rectangle();
 		volt.setOnMouseClicked(e -> {
 			RDataGUI rdat = new RDataGUI();
 			try {
 				Stage secondary=new Stage();
 				rdat.start(secondary, "VOL");
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				e1.printStackTrace();//section which builds the constantly-updating voltage bar
 			}
 		});
-		loc.setFill(Color.web("LIGHTGREEN"));
-		loc.setHeight(10);
-		loc.setWidth(10);
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("LIGHTGREEN"));
@@ -396,19 +416,16 @@ public class command_line extends Application{
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							double temperature = bar1.DataToBarLength("TMP",1);
-							double voltage = bar2.DataToBarLength("VOL",1);
-							double locY= (Math.sin(lat.DataToBarLength("LAT",100))*10)+272;
-							double locX= (lon.DataToBarLength("LON", 100)*.9)+80;
-							loc.setX(locX);
-							loc.setY(locY);
-							//temp.setWidth(50);
-							//volt.setWidth(50);
+							double temperature = bar1.DataToBarLength("TMP",1);//fetches the values for the temperature bar
+							double voltage = bar2.DataToBarLength("VOL",1);//fetches the values for the voltage bar
+							double current = bar3.DataToBarLength("CUR",1);//fetches the values for the current bar
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
-							volta.setText("Voltage: " + (voltage/100) + "\n");
-							tempe.setText("Temperature: " + (temperature/100) + "\n");
-							tempe.setTextFill(Color.SLATEGRAY);
+							curr.setWidth(current/5);
+							volta.setText("Voltage: " + (voltage/100) + "  [V]\n");
+							tempe.setText("Temperature: " + (temperature/100) + "  [K]\n");
+							curre.setText("Current: " + (current/100) + "  [A]\n");
+							tempe.setTextFill(Color.SLATEGRAY);//location of the text and bar, color of the text.
 							tempe.setLayoutX(930);
 							tempe.setLayoutY(110);
 							temp.setLayoutX(930);
@@ -418,7 +435,12 @@ public class command_line extends Application{
 							volta.setLayoutY(240);
 							volt.setLayoutX(930);
 							volt.setLayoutY(285);
-							
+							curre.setTextFill(Color.SLATEGRAY);
+							curre.setLayoutX(930);
+							curre.setLayoutY(380);
+							curr.setLayoutX(930);
+							curr.setLayoutY(410);
+							clock.setText(LocalTime.now().toString());
 						}				
 					});
 
@@ -430,12 +452,13 @@ public class command_line extends Application{
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
-		
 		cl_pane.getChildren().add(backgroundv);
+		cl_pane.getChildren().addAll(volt,temp,tempe,volta, curr, curre);
 		cl_pane.getChildren().add(enterCommand);
 		cl_pane.getChildren().add(commandLog);
 		cl_pane.getChildren().add(returnToMain);
-		cl_pane.getChildren().addAll(volta,volt,tempe,temp);
+		cl_pane.getChildren().add(clock);
+		
 		
 		//Set GUI to constant resolution (changeable in the future)
 		Scene cl_scene = new Scene(cl_pane,850,700,Color.GREY);
@@ -472,8 +495,11 @@ public class command_line extends Application{
 		MenuItem helpb = new MenuItem("Help");
 		MenuItem helpt = new MenuItem("Tutorial");
 
-		//disconnect.setOnAction(e ->);
-
+		disconnect.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				Close.onoff=1;
+			}
+		});
 		logout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				loginGUI gui = new loginGUI();
@@ -486,7 +512,6 @@ public class command_line extends Application{
 			try {
 				import_data.read();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
