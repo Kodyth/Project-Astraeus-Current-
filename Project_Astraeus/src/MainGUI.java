@@ -248,7 +248,7 @@ public class MainGUI extends Application{
 		launch.setOnAction(e -> {
 			try {
 				Close.onoff=0;
-				new COMPORT(serial.getText());
+				COMPORT.portNum=serial.getText();
 				SerialComm.Run(serial.getText());
 				
 			} catch (Exception e1) {

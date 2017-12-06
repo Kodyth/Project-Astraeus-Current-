@@ -48,7 +48,8 @@ public class SerialComm implements SerialPortEventListener {
 	private static String commandString;
 
 	public SerialComm(String input2) {
-		portNum=input2;
+		//portNum=input2;
+		portNum=COMPORT.portNum;
 	}
 
 	public void initialize() {
