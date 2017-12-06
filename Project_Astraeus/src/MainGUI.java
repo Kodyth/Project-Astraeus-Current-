@@ -180,9 +180,9 @@ public class MainGUI extends Application{
 				e1.printStackTrace();
 			}
 		});
-		//loc.setFill(Color.web("LIGHTGREEN"));
-		//loc.setHeight(10);
-		//loc.setWidth(10);
+		if(loc.getY() <= 0) {
+			loc.setVisible(false);
+		}
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("LIGHTGREEN"));
