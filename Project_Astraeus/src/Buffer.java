@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Buffer {
 
 	 //defines the number of different data values in the string
-	//****It is hard coded right now but in sprint 2 will be flexible****
 	static int OrderCount=0;
 	static int  numInputs=5;
 	
@@ -24,6 +23,8 @@ public class Buffer {
 		final String buffer;
 		buffer=input;
 		
+		//method to create separate data string and add the data packet
+		//to the expanding array list of all data
 		createData(buffer);
 	}
 
@@ -31,7 +32,8 @@ public class Buffer {
 	private static void createData(String buffer) {
 		String[] splitData= buffer.split(",");
 		
-		//Temp hard coded values
+		//hard coded values for labels. Future versions will allow for 
+		//customization of data labels
 		dataType[0]= "LAT";
 		dataType[1]= "LON";
 		dataType[2]= "TMP";
@@ -47,6 +49,8 @@ public class Buffer {
 		for (i=0;i<5;i++) {
 			System.out.println(dataType[i]+":"+splitData[i]);
 		}
+		
+		//console outputs to test the data splitting and storage
 		System.out.println();
 		for (j=0;j<5;j++) {
 			dataPacket.add(new Data(dataType[j],splitData[j], OrderCount));

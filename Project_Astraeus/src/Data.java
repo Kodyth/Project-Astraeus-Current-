@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 
 /**
@@ -8,7 +8,8 @@ import java.time.LocalTime;
  * Collaborations: None
  * Date: 10/30/17
  *
- * Description: This is the class to represent the Data objects that will be used in the DataLog and other components
+ * Description: This is the class to represent the Data objects that 
+ * will be used in the DataLog and other components
  */
 
 

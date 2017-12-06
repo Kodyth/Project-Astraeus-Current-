@@ -6,10 +6,10 @@ import java.io.FileReader;
 
 /**
  * OpenFile.java
- * ELO Calculator
+ * Astraeus
  * Author: Brandon Wizikowski
  * Collaborations: Geoffrey Mount
- * Date 12/1/15
+ * Date 12/1/17
  *
  * Variable List
  *      File    savefile    (file to be opened)
