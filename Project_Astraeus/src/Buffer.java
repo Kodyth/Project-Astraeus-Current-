@@ -17,6 +17,7 @@ public class Buffer {
 	//****It is hard coded right now but in sprint 2 will be flexible****
 	static int OrderCount=0;
 	static int  numInputs=5;
+	
 	public static String[] dataType=new String[numInputs];
 	
 	public static void saveBuffer(String input) {
