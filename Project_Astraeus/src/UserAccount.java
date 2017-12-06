@@ -36,13 +36,11 @@ public class UserAccount{
 			String line = br.readLine();
 
 			StringBuilder sb = new StringBuilder();
-			System.out.println(userpass);
 			while (line != null) {
 				sb.append(line);
-				System.out.println(sb.toString());
 				String l = sb.toString();
 				if(l.contains(userpass)) {
-					System.out.println("true");
+
 					if(loginGUI.loginUser==true) {
 						login=true;
 						loggedin = true;
@@ -100,11 +98,11 @@ public class UserAccount{
 			StringBuilder sb = new StringBuilder();
 			while (line != null) {
 				sb.append(line);
-				System.out.println(sb.toString());
+			
 				String l = sb.toString();
 				if(l.contains(user)) {
 					usernameTaken=true;
-					System.out.println("USERNAME TAKEN");
+					
 					break;
 				}
 				line = br.readLine();	
@@ -132,7 +130,7 @@ public static void createNewAccount(){
 
 			}
 			catch (IOException e){
-				System.out.println("File not found");
+				
 				created=false;
 			}
 			{
@@ -152,7 +150,7 @@ public static void createNewAccount(){
 
 			}
 			catch (IOException e){
-				System.out.println("File not found");
+				
 				created=false;
 			}
 			{
