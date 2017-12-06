@@ -10,8 +10,7 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
-//test
-//HI
+
 /**
  * SerialComm.java
  * Project Astraeus
