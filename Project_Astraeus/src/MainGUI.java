@@ -222,7 +222,7 @@ public class MainGUI extends Application{
 							volt.setLayoutY(285);
 							curre.setTextFill(Color.SLATEGRAY);
 							curre.setLayoutX(930);
-							curre.setLayoutY(370);
+							curre.setLayoutY(360);
 							curr.setLayoutX(930);
 							curr.setLayoutY(410);
 							//tesy
