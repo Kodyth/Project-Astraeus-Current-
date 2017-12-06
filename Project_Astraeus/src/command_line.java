@@ -365,7 +365,7 @@ public class command_line extends Application{
 								enterCommand.clear();
 								throw new CommandError();
 							}
-
+							
 							commandListDisplay = commandList;
 							Collections.reverse(commandListDisplay);
 							commandListString = "";
@@ -584,7 +584,6 @@ public class command_line extends Application{
 	public void setCommandList(List<String> input) {
 		commandList = input;
 		commandListDisplay = commandList;
-		Collections.reverse(commandListDisplay);
 		commandListString =  "";
 		for(int i =0; i<commandListDisplay.size();i++) {
 			commandListString = commandListString + commandListDisplay.get(i)+" \n";
