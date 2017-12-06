@@ -209,7 +209,7 @@ public class MainGUI extends Application{
 							curr.setWidth(voltage/5);
 							volta.setText("Voltage: " + (voltage/100) + "  [V]\n");
 							tempe.setText("Temperature: " + (temperature/100) + "  [K]\n");
-							tempe.setText("Current: " + (current/100) + "  [A]\n");
+							curre.setText("Current: " + (current/100) + "  [A]\n");
 							tempe.setTextFill(Color.SLATEGRAY);
 							tempe.setLayoutX(930);
 							tempe.setLayoutY(110);
