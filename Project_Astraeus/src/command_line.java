@@ -1,4 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,11 +59,12 @@ public class command_line extends Application{
 	private String timeStamp;
 	private static Alert alertDialog = new Alert(null);
 	private TextInputDialog inputTextBox = new TextInputDialog();
+	private String userToPromote;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		cl_pane = new Pane();
-		
+
 		//Create elements and add to the pane
 		Image background = new Image("Resources/Astraeus MainGUI.jpg");
 		ImageView backgroundv = new ImageView(background);
@@ -71,7 +77,7 @@ public class command_line extends Application{
 		enterCommand.setLayoutY(480);
 		enterCommand.setPrefSize(750,12);
 		enterCommand.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: WHITE;");
-		
+
 		commandLog.setLayoutX(80);
 		commandLog.setLayoutY(80);
 		commandLog.setPrefSize(750, 400);
@@ -80,21 +86,21 @@ public class command_line extends Application{
 		Button returnToMain = new Button("Return to Main");
 		returnToMain.setMaxHeight(50);
 		returnToMain.setMaxWidth(100);
-        
-        returnToMain.setMinHeight(40);
-        returnToMain.setMinWidth(100);
-        returnToMain.setLayoutX(200);
+
+		returnToMain.setMinHeight(40);
+		returnToMain.setMinWidth(100);
+		returnToMain.setLayoutX(200);
 		returnToMain.setLayoutY(520);
-        returnToMain.setOnAction(e -> {
-        	MainGUI mg = new MainGUI();
-        	try {
-        	mg.start(primaryStage);
-        	mg.setCommandList(commandList);
-        	} catch (Exception e1) {
-        	e1.printStackTrace();
-        	}
-        });
-		
+		returnToMain.setOnAction(e -> {
+			MainGUI mg = new MainGUI();
+			try {
+				mg.start(primaryStage);
+				mg.setCommandList(commandList);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+
 		UserAccount ua = new UserAccount();
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
@@ -291,18 +297,68 @@ public class command_line extends Application{
 								command = timeStamp + ": " + command;
 								commandList.add(0,command);
 							}
-							
+
 							else if(command.equals("exportLog")==true) {
 								enterCommand.clear();
 								FileChooser fileChoose = new FileChooser();
 								fileChoose.getExtensionFilters().addAll(new ExtensionFilter("Text Files", ".txt"));
 								try(  PrintWriter out = new PrintWriter(fileChoose.showSaveDialog(primaryStage)  )  ){
-								    for(int i = 0; i < commandList.size();i++) {
-								    	out.println(commandList.get(i)+"\n");
-								    }
+									for(int i = 0; i < commandList.size();i++) {
+										out.println(commandList.get(i)+"\n");
+									}
 								} catch (FileNotFoundException e1) {
 									e1.printStackTrace();
 								}
+							}
+
+							else if(command.equals("promoteUser")==true) {
+								enterCommand.clear();
+								timeStamp = LocalDateTime.now().toString();
+								command = timeStamp + ": " + command;
+								commandList.add(0,command);
+								inputTextBox.setHeaderText("Enter the user account you would like to promote");
+								inputTextBox.showAndWait();
+								userToPromote = inputTextBox.getResult();
+								{
+									try {
+										boolean found = false;
+										FileReader fr = new FileReader("UserAccountInfo.txt");
+										BufferedReader br=new BufferedReader(fr);
+										String line = br.readLine();
+										StringBuilder sb = new StringBuilder();
+										while (line != null) {
+											sb.append(line);
+											String l = sb.toString();
+											if(l.contains(userToPromote)) {
+												FileWriter fw = new FileWriter("AdminAccountInfo.txt", true);
+												BufferedWriter write = new BufferedWriter(fw);
+												String userpass = l;
+												write.write(userpass);
+												write.close();
+												br.close();
+												alertDialog.setAlertType(AlertType.CONFIRMATION);
+												alertDialog.setHeaderText("User promoted succesfully");
+												alertDialog.showAndWait();
+												found = true;
+												break;
+
+											}	
+
+											line = br.readLine();	
+											sb.append(System.lineSeparator());
+										}
+										if(found==false) {
+											alertDialog.setAlertType(AlertType.WARNING);
+											alertDialog.setHeaderText("Unable to locate user, be sure the account exists before trying to promote it");
+											alertDialog.showAndWait();
+										}
+
+									} catch (IOException e1) {
+										e1.printStackTrace();
+									}
+								}
+
+
 							}
 
 							else {
@@ -318,7 +374,7 @@ public class command_line extends Application{
 							}
 
 							commandLog.setText(commandListString);
-							
+
 						}
 						else if(enterCommand.getText().trim().isEmpty() == true){
 							throw new CommandError();
@@ -332,30 +388,30 @@ public class command_line extends Application{
 						alertDialog.setHeaderText("User does not have the appropriate permissions to use the command line");;
 						alertDialog.show();
 					}
-					
-					}
-					
+
+				}
+
 				catch (CommandError e1) {
 					alertDialog.setAlertType(AlertType.WARNING);
 					alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
 					alertDialog.show();
 				}
-				
-				
+
+
 			}});
-	
-		
+
+
 		Text clock = new Text();
 		clock.setLayoutX(950);
 		clock.setLayoutY(600);
 		clock.setText(LocalTime.now().toString());
 		clock.setStyle("-fx-font: 46 gills-sans-MT; -fx-font-weight: bold");
-		
+
 		//creating bars for temp and voltage
 		BarLengthForData bar1 = new BarLengthForData();//temperature 
 		BarLengthForData bar2 = new BarLengthForData();//voltage
 		BarLengthForData bar3 = new BarLengthForData();//current
-	
+
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
@@ -444,7 +500,7 @@ public class command_line extends Application{
 				}
 			}
 		};
-		
+
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
@@ -454,8 +510,8 @@ public class command_line extends Application{
 		cl_pane.getChildren().add(commandLog);
 		cl_pane.getChildren().add(returnToMain);
 		cl_pane.getChildren().add(clock);
-		
-		
+
+
 		//Setup GUI
 		Scene cl_scene = new Scene(cl_pane,1280,720,Color.GREY);
 		primaryStage.setScene(cl_scene);
@@ -465,11 +521,11 @@ public class command_line extends Application{
 		primaryStage.setMinHeight(720);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Astraeus: Command Line");
-		
-		
+
+
 		//Show the GUI
 		primaryStage.show();
-		
+
 		MenuBar menubar = MenuBarmaker(primaryStage);
 		BorderPane border = new BorderPane(cl_pane);
 		border.setTop(menubar);
@@ -478,7 +534,7 @@ public class command_line extends Application{
 		primaryStage.show();
 
 	}
-	
+
 	public MenuBar MenuBarmaker(Stage primaryStage) {
 		Menu astraeus = new Menu("Astreaus"); 
 		Menu file = new Menu("File");
@@ -511,14 +567,14 @@ public class command_line extends Application{
 				e1.printStackTrace();
 			}
 		});
-		
+
 		helpt.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				Tutorial t = new Tutorial();
 				t.start(primaryStage);
 			}
 		});
-		
+
 		astraeus.getItems().addAll(disconnect, logout);
 		file.getItems().addAll(open, save);
 		help.getItems().addAll(helpb,helpt);
@@ -536,16 +592,16 @@ public class command_line extends Application{
 		}
 
 		commandLog.setText(commandListString);
-		
-		
+
+
 	}
-	
-	
+
+
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
-	}
-	
+}
+
 class CommandError extends Exception{
 	/**
 	 * 
