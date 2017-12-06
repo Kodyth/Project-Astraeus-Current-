@@ -1,12 +1,5 @@
 import java.util.*;
 
-//Test for Quiz -- Brandon W
-//Test for Quiz -- Kody M
-//Test for Quiz -- Geoffrey Mount
-//Test for Quiz -- Noah Robison
-//Test for Quiz -- Chloe Brown
-//Noah's is Working//retest
-
 /**
  * DataLog.java
  * Project Astraeus
@@ -20,6 +13,7 @@ import java.util.*;
 
 public  class DataLog {
 	
+	//This array list stores all of the array lists of data that represent data packets
 	public static ArrayList<ArrayList<Data>> allData= new ArrayList<ArrayList<Data>>();
 	
 	//This method exists for debugging
@@ -35,6 +29,9 @@ public  class DataLog {
 			System.out.println();
 		}
 	}
+	
+	//Method to locate a particular set of dat from the data log so other classes can access
+	//the data stored within the array list
 	public static int GetLocation(String s){
 		int locationOfinfo=0;
 		if(DataLog.allData.size()>0){

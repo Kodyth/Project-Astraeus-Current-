@@ -20,6 +20,8 @@ import java.util.Enumeration;
  * Project Astraeus
  * Author: Brandon Wizikowski
  * Collaborations: Stack Exchange for example on how RXTX works
+ * 					Sections of this code were taken directly from the RXTX library
+ * 					and associated examples on the RXTX wiki and Stack Exchange
  * Date: 10/30/17
  *
  * Description: This class is responsible for reading inputs from the serial port and passing
@@ -31,6 +33,7 @@ public class SerialComm implements SerialPortEventListener {
 	SerialPort serialPort;
 	//Define different port names for different platforms
 	
+	//portNum is the com port number that is referenced throughout the application
 	private static String portNum = COMPORT.portNum;
 	private static final String PORT_NAMES[] = { 
 			 portNum
@@ -113,16 +116,27 @@ public class SerialComm implements SerialPortEventListener {
 	/**
 	 * Handle an event on the serial port. Read the data and print it.
 	 */
+	
+	//THIS IS THE SECTION THAT READS SERIAL PORT AND SENDS CODE TO OTHER CLASSES
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
+				//checks to see if the command to close communication has been issued
 				if (Close.onoff==1) {
 					close();
 				}
+				//reads the string that is in the buffer for the serial port
 				String inputLine=input.readLine();
+				
+				//The arduino code as implemented has a time stamp before each new line in the buffer
+				//These always start with a V so this allows the timestamp to be stripped from the 
+				//serial reading methods
 				if (inputLine.startsWith("V")) {
 					inputLine = "";
 				}
+				
+				//Checks to see if the arduino has returned a command which can be sent to the 
+				//command line interface
 				else if(inputLine.startsWith("C")) {
 					
 					inputLine=input.readLine();
@@ -149,6 +163,7 @@ public class SerialComm implements SerialPortEventListener {
 		
 	}
 
+	//This is the method that begins all of the serial communication
 	public static void Run(String input)  throws Exception {
 		SerialComm main = new SerialComm(input);
 		
