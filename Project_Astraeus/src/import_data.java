@@ -8,7 +8,7 @@ import java.io.FileReader;
  * OpenFile.java
  * ELO Calculator
  * Author: Brandon Wizikowski
- * Collaborations: No collaborations for this file
+ * Collaborations: Geoffrey Mount
  * Date 12/1/15
  *
  * Variable List

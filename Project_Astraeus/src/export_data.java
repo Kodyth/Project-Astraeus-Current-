@@ -8,7 +8,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * export_data.java
  * 
  * Author: Brandon Wizikowski
- * Collaborations: None
+ * Collaborations: Geoffrey Mount
  * Date: 12/3/15
  *
  * Variable List
