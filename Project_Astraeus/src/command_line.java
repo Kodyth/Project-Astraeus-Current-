@@ -544,7 +544,6 @@ public class command_line extends Application{
 		MenuItem logout = new MenuItem("Logout");
 		MenuItem open = new MenuItem("Open");
 		MenuItem save = new MenuItem("Save");
-		MenuItem helpb = new MenuItem("Help");
 		MenuItem helpt = new MenuItem("Tutorial");
 
 		disconnect.setOnAction(new EventHandler<ActionEvent>() {
@@ -577,7 +576,7 @@ public class command_line extends Application{
 
 		astraeus.getItems().addAll(disconnect, logout);
 		file.getItems().addAll(open, save);
-		help.getItems().addAll(helpb,helpt);
+		help.getItems().addAll(helpt);
 		MenuBar menubar = new MenuBar(astraeus, file, help);
 		return menubar;
 	}
