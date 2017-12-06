@@ -25,8 +25,7 @@ import javafx.scene.control.MenuItem;
  * Will display location of satellite, temperature readings, and voltage readings.
  * Functions: Main, Start
  * 
- * FRANCE IS BACON
- * HAIL BRITTANIA
+ * Collaborators: Kody, Geoffrey, Brandon, Noah, and Chloe
  * 
  */
 public class MainGUI extends Application{
@@ -99,7 +98,7 @@ public class MainGUI extends Application{
 		});
 		commandb.setLayoutX(200);
 		commandb.setLayoutY(520);
-		Button rData = new Button("View Recorded Data");
+		Button rData = new Button("View Recorded Data");//recorded data button
 		rData.setMaxWidth(Double.MAX_VALUE);
 		rData.setMinHeight(50);
 		rData.setOnAction(e -> {
@@ -109,18 +108,18 @@ public class MainGUI extends Application{
 				rdat.start(secondary);
 			} catch (Exception e1) {
 				e1.printStackTrace();
-			}
+			}//section which starts the recorded data tab when the button is clicked
 		});
 		rData.setLayoutX(600);
 		rData.setLayoutY(520);
 		mainLayout.getChildren().addAll(rData,commandb);
 		
 		//creating bars for temp and voltage
-		BarLengthForData bar1 = new BarLengthForData();
-		BarLengthForData bar2 = new BarLengthForData();
-		BarLengthForData bar3 = new BarLengthForData();
-		PositionPointer lat = new PositionPointer();
-		PositionPointer lon = new PositionPointer();
+		BarLengthForData bar1 = new BarLengthForData();//temperature 
+		BarLengthForData bar2 = new BarLengthForData();//voltage
+		BarLengthForData bar3 = new BarLengthForData();//current
+		PositionPointer lat = new PositionPointer();//latitude
+		PositionPointer lon = new PositionPointer();//longitude
 		Label tempe = new Label();
 		tempe.setStyle("-fx-text-fill: BLACK; -fx-font: 15 gills-sans-MT");
 		Label volta = new Label();
@@ -136,7 +135,7 @@ public class MainGUI extends Application{
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});
+		});//section which builds the constantly-updating temperature bar
 
 		temp.setHeight(50);
 		temp.setFill(Color.web("LIGHTGREEN"));
@@ -149,7 +148,7 @@ public class MainGUI extends Application{
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});
+		});//section which builds the constantly-updating temperature bar
 
 		curr.setHeight(50);
 		curr.setFill(Color.web("LIGHTGREEN"));
@@ -167,7 +166,7 @@ public class MainGUI extends Application{
 				rdat.start(secondary, "LON");
 			} catch (Exception e1) {
 				e1.printStackTrace();
-			}
+			}//section which builds the constantly-updating moving satellite picture
 		});
 		volt.setOnMouseClicked(e -> {
 			RDataGUI rdat = new RDataGUI();
@@ -175,12 +174,12 @@ public class MainGUI extends Application{
 				Stage secondary=new Stage();
 				rdat.start(secondary, "VOL");
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				e1.printStackTrace();//section which builds the constantly-updating voltage bar
 			}
 		});
 		if(loc.getY() <= 0) {
 			loc.setVisible(false);
-		}
+		}//hides the satellite when nothing is happening
 
 		volt.setHeight(50);
 		volt.setFill(Color.web("LIGHTGREEN"));
@@ -195,22 +194,20 @@ public class MainGUI extends Application{
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							double temperature = bar1.DataToBarLength("TMP",1);
-							double voltage = bar2.DataToBarLength("VOL",1);
-							double current = bar3.DataToBarLength("CUR",1);
-							double locY= (lat.PositionPointerX()-5);
-							double locX= (lon.PositionPointerY());
+							double temperature = bar1.DataToBarLength("TMP",1);//fetches the values for the temperature bar
+							double voltage = bar2.DataToBarLength("VOL",1);//fetches the values for the voltage bar
+							double current = bar3.DataToBarLength("CUR",1);//fetches the values for the current bar
+							double locY= (lat.PositionPointerX()-5);//fetches the values for the latitude of the satellite
+							double locX= (lon.PositionPointerY());//fetches the values for the longitude of the satellite
 							loc.setX(locX);
 							loc.setY(locY);
-							//temp.setWidth(50);
-							//volt.setWidth(50);
 							temp.setWidth(temperature/400);
 							volt.setWidth(voltage/5);
 							curr.setWidth(current/5);
 							volta.setText("Voltage: " + (voltage/100) + "  [V]\n");
 							tempe.setText("Temperature: " + (temperature/100) + "  [K]\n");
 							curre.setText("Current: " + (current/100) + "  [A]\n");
-							tempe.setTextFill(Color.SLATEGRAY);
+							tempe.setTextFill(Color.SLATEGRAY);//location of the text and bar, color of the text.
 							tempe.setLayoutX(930);
 							tempe.setLayoutY(110);
 							temp.setLayoutX(930);
