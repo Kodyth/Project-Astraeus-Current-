@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * RDataGUI.java
  * 
- * @Author Author: Geoffrey Mount
+ * @author Author: Geoffrey Mount
  * Collaborations: None
  * Date: 12/3/17
  * Description: This class builds the tables and the recorded data tabs.
