@@ -23,9 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. Contains buttons that lead to every other section of the program. 
- * Will display location of satellite, temperature readings, and voltage readings.
- * Functions: Main, Start
+ * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. 
+ * It contains buttons that lead to the command line and recent data charts. It also displays location of satellite,
+ * temperature, voltage, and current readings.
+ * Functions: Main, Start, MenuBarmaker
  * 
  * Collaborators: Kody, Geoffrey, Brandon, Noah, and Chloe
  * 
