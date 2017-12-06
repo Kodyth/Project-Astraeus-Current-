@@ -51,15 +51,16 @@ public class RDataGUI extends Application{
         for(int i=0;i<tables.size();i++){
         	ObservableList<Data> data=FXCollections.observableArrayList();
         	String measured=DataLog.allData.get(0).get(i).getType();
+        	int datacolumn=i;
         	TableColumn<Data, String> valuecol = new TableColumn<Data, String>(measured);
             valuecol.setMinWidth(100);
             valuecol.setCellValueFactory(
                     new PropertyValueFactory<Data, String>("value"));
             
+            
             TableColumn<Data, String> locationCol = new TableColumn<Data, String>("Recency");
             locationCol.setMinWidth(100);
-            locationCol.setCellValueFactory(
-                    new PropertyValueFactory<Data, String>("order"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Data,String>("order"));
             
             Task<Void> task = new Task<Void>() {
           	  @Override
@@ -70,14 +71,24 @@ public class RDataGUI extends Application{
           	      Platform.runLater(new Runnable() {
           	        @Override
           	        public void run() {
-          	          for(int i=0;i<DataLog.allData.get(0).size();i++){
-          	        	  
-          	        		  if (DataLog.allData.get(0).get(i).getType()==measured){
-          	        			 data.add(DataLog.allData.get(DataLog.allData.size()-1).get(i));
+          	        	if(tables.get(datacolumn).getItems().size()==0){
+          	        		for(int j=0;j<DataLog.allData.get(0).size();j++){
+          	        	  		
+            	        		  if (DataLog.allData.get(0).get(j).getType()==measured){
+            	        			  for(int k=0;k<DataLog.allData.size();k++)
+            	        			 data.add(DataLog.allData.get(k).get(j));
+            	        		  }
+            	        	  }
+          	        	}
+          	        	else{
+          	          for(int j=0;j<DataLog.allData.get(0).size();j++){
+          	        	  		
+          	        		  if (DataLog.allData.get(0).get(j).getType()==measured){
+          	        			 data.add(DataLog.allData.get(DataLog.allData.size()-1).get(j));
           	        		  }
           	        	  }
           	        		  
-          	          }
+          	          }}
           	        }				
           	      );
           	      //recommitting
@@ -121,6 +132,7 @@ public class RDataGUI extends Application{
         
         
         for(int i=0;i<tables.size();i++){
+        	int datacolumn=i;
         	ObservableList<Data> data=FXCollections.observableArrayList();
         	String measured=DataLog.allData.get(0).get(locationOfinfo).getType();
         	TableColumn<Data, String> valuecol = new TableColumn<Data, String>(measured);
@@ -130,8 +142,7 @@ public class RDataGUI extends Application{
             
             TableColumn<Data, String> locationCol = new TableColumn<Data, String>("Recency");
             locationCol.setMinWidth(100);
-            locationCol.setCellValueFactory(
-                    new PropertyValueFactory<Data, String>("order"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Data,String>("order"));
             
             Task<Void> task = new Task<Void>() {
           	  @Override
@@ -142,6 +153,16 @@ public class RDataGUI extends Application{
           	      Platform.runLater(new Runnable() {
           	        @Override
           	        public void run() {
+          	        	if(tables.get(datacolumn).getItems().size()==0){
+          	        		for(int j=0;j<DataLog.allData.get(0).size();j++){
+          	        	  		
+            	        		  if (DataLog.allData.get(0).get(j).getType()==measured){
+            	        			  for(int k=0;k<DataLog.allData.size();k++)
+            	        			 data.add(DataLog.allData.get(k).get(j));
+            	        		  }
+            	        	  }
+          	        	}
+          	        	else{
           	          for(int i=0;i<DataLog.allData.get(0).size();i++){
           	        	  
           	        		  if (DataLog.allData.get(0).get(i).getType()==measured){
@@ -149,7 +170,7 @@ public class RDataGUI extends Application{
           	        		  }
           	        	  }
           	        		  
-          	          }
+          	          }}
           	        }				
           	      );
           	      //recommitting
