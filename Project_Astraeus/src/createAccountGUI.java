@@ -99,7 +99,7 @@ public class createAccountGUI{
 		root.add(passwords, 6, 7);
 		root.add(passwordsV, 6, 9);
 		root.add(showPass, 6, 11);
-		root.add(passwordCreate, 2, 7);
+		root.add(passwordCreate, 6, 7);
 		
 		CheckBox adminBox = new CheckBox("Admin Account");
 		adminBox.setStyle("-fx-text-fill: BLACK; -fx-font: 13 century-gothic; -fx-font-weight: bold ");

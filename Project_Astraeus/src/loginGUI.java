@@ -110,7 +110,7 @@ public class loginGUI extends Application {
 		root.add(loginU, 3, 29);
 		loginU.setText("Sign On");
 		
-		//Admin Accounts
+		//Admin Accounts 
 		Text Admin = new Text("          Admin Login");
 		Admin.setFill(Color.WHITE);
 		Admin.setStyle(" -fx-font: 18 century-gothic; -fx-font-weight: bold ");
@@ -264,13 +264,23 @@ public class loginGUI extends Application {
 					if(UserAccount.loginAdmin==true | UserAccount.login==true) {
 						Text logintrue = new Text("Logged in as "+usernameLogin.getText());
 						root.add(logintrue, 15, 22);
-
-						MainGUI maingui = new MainGUI();
-						try {
-							maingui.start(primaryStage);
-						} catch (Exception e1) {
-							e1.printStackTrace();
+						if(UserAccount.created==true) {
+							Tutorial tut = new Tutorial();
+							try {
+								tut.start(primaryStage);
+								UserAccount.created=false;
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
 						}
+						else{
+							MainGUI maingui = new MainGUI();
+							try {
+								maingui.start(primaryStage);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}			
 					}
 					else {
 						mainPane.getChildren().add(loginfalse);
