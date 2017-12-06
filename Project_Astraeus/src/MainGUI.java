@@ -245,6 +245,7 @@ public class MainGUI extends Application{
 		Button launch = new Button("Launch");
 		launch.setOnAction(e -> {
 			try {
+				Close.onoff=0;
 				new COMPORT(serial.getText());
 				SerialComm.Run(serial.getText());
 				
@@ -280,11 +281,11 @@ public class MainGUI extends Application{
 		MenuItem helpb = new MenuItem("Help");
 		MenuItem helpt = new MenuItem("Tutorial");
 
-//		disconnect.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override public void handle(ActionEvent e) {
-//				
-//			}
-//		});
+		disconnect.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				Close.onoff=1;
+			}
+		});
 		logout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				loginGUI gui = new loginGUI();

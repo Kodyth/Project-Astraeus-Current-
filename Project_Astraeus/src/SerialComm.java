@@ -101,7 +101,7 @@ public class SerialComm implements SerialPortEventListener {
 	 * This should be called when you stop using the port.
 	 * This will prevent port locking on platforms like Linux.
 	 */
-	public synchronized void close() {
+	public  void close() {
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
@@ -114,6 +114,9 @@ public class SerialComm implements SerialPortEventListener {
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
+				if (Close.onoff==1) {
+					close();
+				}
 				String inputLine=input.readLine();
 				if (inputLine.startsWith("V")) {
 					inputLine = "";
@@ -194,6 +197,7 @@ public class SerialComm implements SerialPortEventListener {
 
 	    System.load(temp.getAbsolutePath());
 	}
+	
 
 }
 
