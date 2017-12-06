@@ -110,7 +110,7 @@ public class loginGUI extends Application {
 		root.add(loginU, 3, 29);
 		loginU.setText("Sign On");
 		
-		//Admin Accounts
+		//Admin Accounts 
 		Text Admin = new Text("          Admin Login");
 		Admin.setFill(Color.WHITE);
 		Admin.setStyle(" -fx-font: 18 century-gothic; -fx-font-weight: bold ");
