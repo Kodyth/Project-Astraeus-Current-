@@ -47,10 +47,10 @@ public class command_line extends Application{
 	private Pane cl_pane;
 	private String command;
 	private String response;
-	public static List<String> commandList = new ArrayList<String>();
+	public List<String> commandList = new ArrayList<String>();
 	public List<String> commandListDisplay = new ArrayList<String>();
 	private String commandListString;
-	private String  naviValues = "";
+	private TextArea commandLog = new TextArea();
 	private String timeStamp;
 	private static Alert alertDialog = new Alert(null);
 	private TextInputDialog inputTextBox = new TextInputDialog();
@@ -58,7 +58,7 @@ public class command_line extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		cl_pane = new Pane();
-
+		
 		//Create elements and add to the pane
 		Image background = new Image("Resources/Astraeus MainGUI.jpg");
 		ImageView backgroundv = new ImageView(background);
@@ -71,7 +71,7 @@ public class command_line extends Application{
 		enterCommand.setLayoutY(480);
 		enterCommand.setPrefSize(750,12);
 		enterCommand.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: WHITE;");
-		TextArea commandLog = new TextArea();
+		
 		commandLog.setLayoutX(80);
 		commandLog.setLayoutY(80);
 		commandLog.setPrefSize(750, 400);
@@ -89,14 +89,12 @@ public class command_line extends Application{
         	MainGUI mg = new MainGUI();
         	try {
         	mg.start(primaryStage);
+        	mg.setCommandList(commandList);
         	} catch (Exception e1) {
         	e1.printStackTrace();
         	}
         });
 		
-		
-
-
 		UserAccount ua = new UserAccount();
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
@@ -312,7 +310,7 @@ public class command_line extends Application{
 								throw new CommandError();
 							}
 
-							ArrayList<String> commandListDisplay = new ArrayList<>(commandList);
+							commandListDisplay = commandList;
 							Collections.reverse(commandListDisplay);
 							commandListString = "";
 							for(int i =0; i<commandListDisplay.size();i++) {
@@ -336,16 +334,16 @@ public class command_line extends Application{
 					}
 					
 					}
-
+					
 				catch (CommandError e1) {
 					alertDialog.setAlertType(AlertType.WARNING);
 					alertDialog.setHeaderText("User input could not be accepted due to improper formatting or invalid characters!");;
 					alertDialog.show();
 				}
+				
+				
 			}});
-
-		//Set On-Screen Command Log
-		commandLog.setText(commandListString);
+	
 		
 		Text clock = new Text();
 		clock.setLayoutX(950);
@@ -354,8 +352,6 @@ public class command_line extends Application{
 		clock.setStyle("-fx-font: 46 gills-sans-MT; -fx-font-weight: bold");
 		
 		//creating bars for temp and voltage
-		PositionPointer lat = new PositionPointer();//latitude
-		PositionPointer lon = new PositionPointer();//longitude
 		BarLengthForData bar1 = new BarLengthForData();//temperature 
 		BarLengthForData bar2 = new BarLengthForData();//voltage
 		BarLengthForData bar3 = new BarLengthForData();//current
@@ -437,7 +433,7 @@ public class command_line extends Application{
 							volt.setLayoutY(285);
 							curre.setTextFill(Color.SLATEGRAY);
 							curre.setLayoutX(930);
-							curre.setLayoutY(380);
+							curre.setLayoutY(360);
 							curr.setLayoutX(930);
 							curr.setLayoutY(410);
 							clock.setText(LocalTime.now().toString());
@@ -448,7 +444,7 @@ public class command_line extends Application{
 				}
 			}
 		};
-
+		
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
@@ -460,8 +456,8 @@ public class command_line extends Application{
 		cl_pane.getChildren().add(clock);
 		
 		
-		//Set GUI to constant resolution (changeable in the future)
-		Scene cl_scene = new Scene(cl_pane,850,700,Color.GREY);
+		//Setup GUI
+		Scene cl_scene = new Scene(cl_pane,1280,720,Color.GREY);
 		primaryStage.setScene(cl_scene);
 		primaryStage.setMaxWidth(1280);
 		primaryStage.setMinWidth(1280);
@@ -530,13 +526,26 @@ public class command_line extends Application{
 		return menubar;
 	}
 
+	public void setCommandList(List<String> input) {
+		commandList = input;
+		commandListDisplay = commandList;
+		Collections.reverse(commandListDisplay);
+		commandListString =  "";
+		for(int i =0; i<commandListDisplay.size();i++) {
+			commandListString = commandListString + commandListDisplay.get(i)+" \n";
+		}
+
+		commandLog.setText(commandListString);
 		
+		
+	}
+	
+	
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
-}
-
-
+	}
+	
 class CommandError extends Exception{
 	/**
 	 * 

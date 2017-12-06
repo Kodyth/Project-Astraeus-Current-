@@ -19,6 +19,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. Contains buttons that lead to every other section of the program. 
@@ -29,7 +31,7 @@ import java.time.*;
  * 
  */
 public class MainGUI extends Application{
-	
+	public static List<String> commandList = new ArrayList<String>();
 	String comPort =""; 
 	UserAccount ua = new UserAccount();
 	public static void main(String[] args) {
@@ -91,6 +93,7 @@ public class MainGUI extends Application{
 			command_line cmd = new command_line();
 			try {
 				cmd.start(primaryStage);
+				cmd.setCommandList(commandList);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -329,6 +332,9 @@ public class MainGUI extends Application{
 		return menubar;
 	}
 
+	public void setCommandList(List<String> input) {
+		commandList = input;
+	}
 
 }
 
