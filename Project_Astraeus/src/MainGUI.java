@@ -180,7 +180,7 @@ public class MainGUI extends Application{
 				e1.printStackTrace();
 			}
 		});
-		if(loc.getY() <= 0) {
+		if(loc.getY() <= -180) {
 			loc.setVisible(false);
 		}
 
