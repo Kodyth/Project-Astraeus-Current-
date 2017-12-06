@@ -1,4 +1,6 @@
 
+
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -177,7 +179,7 @@ public class MainGUI extends Application{
 				e1.printStackTrace();//section which builds the constantly-updating voltage bar
 			}
 		});
-		if(loc.getY() <= 0) {
+		if(loc.getY() <= -180) {
 			loc.setVisible(false);
 		}//hides the satellite when nothing is happening
 
@@ -242,7 +244,8 @@ public class MainGUI extends Application{
 		Button launch = new Button("Launch");
 		launch.setOnAction(e -> {
 			try {
-				new COMPORT(serial.getText());
+				Close.onoff=0;
+				COMPORT.portNum=serial.getText();
 				SerialComm.Run(serial.getText());
 				
 			} catch (Exception e1) {
@@ -277,11 +280,11 @@ public class MainGUI extends Application{
 		MenuItem helpb = new MenuItem("Help");
 		MenuItem helpt = new MenuItem("Tutorial");
 
-//		disconnect.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override public void handle(ActionEvent e) {
-//				
-//			}
-//		});
+		disconnect.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				Close.onoff=1;
+			}
+		});
 		logout.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				loginGUI gui = new loginGUI();
