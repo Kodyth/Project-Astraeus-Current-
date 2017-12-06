@@ -1,3 +1,13 @@
+/**
+ * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. 
+ * It contains buttons that lead to the command line and recent data charts. It also displays location of satellite,
+ * temperature, voltage, and current readings.
+ * Functions: Main, Start, MenuBarmaker
+ * 
+ * Collaborators: Kody, Geoffrey, Brandon, Noah, and Chloe
+ * 
+ */
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -22,15 +32,6 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Description: Main GUI is the main menu of the program. It is the first page that displays after logging in. 
- * It contains buttons that lead to the command line and recent data charts. It also displays location of satellite,
- * temperature, voltage, and current readings.
- * Functions: Main, Start, MenuBarmaker
- * 
- * Collaborators: Kody, Geoffrey, Brandon, Noah, and Chloe
- * 
- */
 public class MainGUI extends Application{
 	public static List<String> commandList = new ArrayList<String>();
 	String comPort =""; 

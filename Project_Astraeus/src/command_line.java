@@ -44,6 +44,7 @@ import java.time.*;
  * the communications class, and stores all entered commands in a data log GUI element.
  * 
  * @author Kody Miller
+ * @version Initial Release (1.0)
  *
  *
  */
@@ -102,6 +103,11 @@ public class command_line extends Application{
 		});
 
 		UserAccount ua = new UserAccount();
+		/**
+		 * 	When a command is typed and the enter key is pressed, the command is processed and sent to the CubeSat if the command is valid and the user is an admin.
+		 * 
+		 */
+		
 		enterCommand.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER){
 
@@ -400,7 +406,7 @@ public class command_line extends Application{
 
 			}});
 
-
+		//Build the clock on screen
 		Text clock = new Text();
 		clock.setLayoutX(950);
 		clock.setLayoutY(600);
@@ -534,7 +540,11 @@ public class command_line extends Application{
 		primaryStage.show();
 
 	}
-
+	/**
+	 * 
+	 * @param primaryStage
+	 * @return MenuBar - the menuBar object that is accessible on the command line screen
+	 */
 	public MenuBar MenuBarmaker(Stage primaryStage) {
 		Menu astraeus = new Menu("Astreaus"); 
 		Menu file = new Menu("File");
@@ -581,6 +591,11 @@ public class command_line extends Application{
 		return menubar;
 	}
 
+	/**
+	 * Sets the commandLog GUI element to the most recent commandList stored in the MainGUI when the command line button is clicked
+	 * 
+	 * @param input
+	 */
 	public void setCommandList(List<String> input) {
 		commandList = input;
 		commandListDisplay = commandList;

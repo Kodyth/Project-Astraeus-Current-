@@ -1,13 +1,8 @@
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 
 /**
- * OpenFile.java
+ * import_data.java
  * Astraeus
- * Author: Brandon Wizikowski
+ * @author wildl Brandon Wizikowski
  * Collaborations: Geoffrey Mount
  * Date 12/1/17
  *
@@ -19,6 +14,11 @@ import java.io.FileReader;
  * Method List
  *      void read()  (method to open a file chooser and read the data into the program)
  */
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 public class import_data {
 

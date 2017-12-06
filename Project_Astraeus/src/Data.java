@@ -4,7 +4,7 @@ import java.time.LocalTime;
 /**
  * Data.java
  * Project Astraeus
- * Author: Brandon Wizikowski
+ * @author Brandon Wizikowski
  * Collaborations: None
  * Date: 10/30/17
  *

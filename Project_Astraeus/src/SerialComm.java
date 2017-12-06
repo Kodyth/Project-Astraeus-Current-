@@ -1,24 +1,7 @@
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
-import java.util.Enumeration;
-
 /**
  * SerialComm.java
  * Project Astraeus
- * Author: Brandon Wizikowski
+ * @author Brandon Wizikowski
  * Collaborations: Stack Exchange for example on how RXTX works
  * 					Sections of this code were taken directly from the RXTX library
  * 					and associated examples on the RXTX wiki and Stack Exchange
@@ -27,6 +10,22 @@ import java.util.Enumeration;
  * Description: This class is responsible for reading inputs from the serial port and passing
  * 				the inputs to other classes to separate and store the data
  */
+
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+import java.util.Enumeration;
+
+
 
 
 public class SerialComm implements SerialPortEventListener {

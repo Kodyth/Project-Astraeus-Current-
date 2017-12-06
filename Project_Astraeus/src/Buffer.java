@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Buffer.java
  * Project Astraeus
@@ -7,9 +5,11 @@ import java.util.ArrayList;
  * Collaborations: None
  * Date: 10/30/17
  *
- * Description: ThBranis is a temporary hold class to break down the data and then allow it to be processed
+ * Description: This is a temporary hold class to break down the data and then allow it to be processed
  * 				into the DataLog Class
  */
+
+import java.util.ArrayList;
 
 public class Buffer {
 

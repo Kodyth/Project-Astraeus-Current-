@@ -4,7 +4,7 @@
  * user doesn't already have an account, they can click on the create account button to make one, which will switch them to that
  * GUI.  
  * 
- * @author chloe
+ * @author Chloe Brown
  */
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,7 +17,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

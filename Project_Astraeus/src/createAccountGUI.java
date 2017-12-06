@@ -5,23 +5,20 @@
  * written to the user account text file. Once an account is created, there is a back button that allows that user to go back to login
  * screen. 
  *
- * @author chloe
+ * @author Chloe Brown
  *
  */
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class createAccountGUI{

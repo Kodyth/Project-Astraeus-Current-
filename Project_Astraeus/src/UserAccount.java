@@ -1,7 +1,7 @@
 /**
  * This class contains the logic methods for user/admin account creation and retrieval.
  * 
- * @author chloe
+ * @author Chloe Brown
  *
  */
 

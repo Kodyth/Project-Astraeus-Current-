@@ -1,8 +1,9 @@
-//Brandon Wizikowski
-
-//This class exists simply as a flag for wether or not the 
-//Serial communication should be open or closed
-
+/**
+ * 
+ * This class exists simply as a flag for whether or not the Serial communication should be open or closed
+ * @author Brandon Wizikowski
+ *
+ */
 
 //This is an abstract class so that any other class may reference and choose to turn on or off the communication 
 public abstract class Close {

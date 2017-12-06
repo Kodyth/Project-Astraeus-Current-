@@ -1,15 +1,15 @@
-import java.util.*;
-
 /**
  * DataLog.java
  * Project Astraeus
- * Author: Brandon Wizikowski
+ * @author Brandon Wizikowski
  * Collaborations: Stack Exchange for example on how RXTX works
  * Date: 10/30/17
  *
  * Description: This is the class that is responsible for keeping all of Data input to the program organized
  * 				and accessible to other parts of the program
  */
+
+import java.util.*;
 
 public  class DataLog {
 	

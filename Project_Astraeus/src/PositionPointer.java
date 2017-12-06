@@ -1,8 +1,7 @@
-
 /**
  * PositionPointer.java
  * 
- * @author Author: Geoffrey Mount
+ * @author Geoffrey Mount
  * Collaborations: Kody Miller
  *Date: 12/3/17
  * Description: This class translates latitude and longitude values from the tables into usable positions.

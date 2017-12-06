@@ -1,31 +1,25 @@
-import java.util.ArrayList;
-
-import javafx.application.*;
-
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-
-
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
-
-import javafx.scene.control.TableColumn;
-
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 /**
  * RDataGUI.java
  * 
- * @author Author: Geoffrey Mount
+ * @author Geoffrey Mount
  * Collaborations: None
  * Date: 12/3/17
  * Description: This class builds the tables and the recorded data tabs.
  */
+
+import java.util.ArrayList;
+import javafx.application.*;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
  
 public class RDataGUI extends Application{
 

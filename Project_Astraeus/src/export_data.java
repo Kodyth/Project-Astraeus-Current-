@@ -1,13 +1,7 @@
-import java.io.FileWriter;
-import java.io.IOException;
-
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-
 /**
  * export_data.java
  * 
- * Author: Brandon Wizikowski
+ * @author Brandon Wizikowski
  * Collaborations: Geoffrey Mount
  * Date: 12/3/17
  *
@@ -17,6 +11,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * Methods List
  *      void write(String) (used to write information to the savefile)
  */
+
+import java.io.FileWriter;
+import java.io.IOException;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class export_data{
 
